@@ -1,0 +1,89 @@
+﻿@{
+    Layout = null;
+}
+@using Model;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>exam</title>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <style type="text/css">
+        .list, li {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .scroll {
+            width: 500px;
+            height: 25px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+            .scroll li {
+                width: 500px;
+                height: 25px;
+                line-height: 25px;
+                overflow: hidden;
+            }
+
+                .scroll li a {
+                    font-size: 14px;
+                    color: #333;
+                    text-decoration: none;
+                }
+
+                    .scroll li a:hover {
+                        text-decoration: underline;
+                    }
+    </style>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="scroll">
+
+        <ul class="list">
+
+            <li><a href="#" target="_blank">sdfsdfsdf </a></li>
+
+            <li><a href="#" target="_blank">rtyrt rty rtyrt r</a></li>
+
+        </ul>
+
+    </div>
+
+    <script>
+
+        function autoScroll(obj) {
+
+            $(obj).find(".list").animate({
+
+                marginTop: "-25px"
+
+            }, 500, function () {
+
+                $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
+
+            })
+
+        }
+
+        $(function () {
+
+            setInterval('autoScroll(".scroll")', 3000)
+
+        })
+
+    </script>
+
+</body>
+
+</html>  

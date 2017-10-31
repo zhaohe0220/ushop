@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-需求详细</title>
+</head>
+<body>
+    <div id="content">
+        <div class="item" style="border:1px solid #fa4332;">
+            @foreach (Model.NeedInfo needInfo in (List<Model.NeedInfo>)ViewData["Needdetail"])
+            {
+                <div class="detail_title"><a>@needInfo.Title</a></div>
+                <div class="detail_time"><h5>@needInfo.ReleaseTime</h5></div>
+                <div class="lxfs">
+            @if (needInfo.QQ != "") {  <h5>QQ联系：@needInfo.QQ</h5>}
+            else { <h5>QQ联系：无QQ</h5>}
+           
+            
+            <h5>电话联系：@needInfo.Phone</h5></div>
+                <div class="detail_content"><p>@needInfo.Detail</p></div>}
+        </div>
+    </div>
+</body>
+</html>

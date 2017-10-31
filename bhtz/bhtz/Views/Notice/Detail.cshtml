@@ -1,0 +1,23 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-公告详情</title>
+</head>
+<body>
+    <div id="content">
+        <div class="item" style="border:1px solid #fa4332;">
+            @foreach (Model.NoticeInfo noticeInfo in (List<Model.NoticeInfo>)ViewData["Notice"])
+            {
+                <div class="detail_title"><a>@noticeInfo.Title</a></div>
+                <div class="detail_time"><h5>@noticeInfo.PublishTime</h5></div>
+                <div class="detail_content"><p>@Html.Raw(noticeInfo.NContent)</p></div>}
+        </div>
+    </div>
+</body>
+</html>

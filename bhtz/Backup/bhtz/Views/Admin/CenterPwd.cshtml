@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CenterPwd</title>
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <style type="text/css">
+        label.error {
+            padding-left: 16px;
+            padding-bottom: 2px;
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        //验证
+        $().ready(function () {
+            $("#pwdform").validate({
+                rules: {
+                    OldPwd: {
+                        required: true
+                    },
+                   Pwd: {
+                        required: true
+                    },
+                    PwdOk: {
+                        required: true,
+                        equalTo: "#Pwd"
+                    },
+                },
+                messages: {
+                    OldPwd: {
+                        required: "◀请填写原始密码"
+                    },
+                    Pwd: {
+                        required: "◀请输入新密码"
+                    },
+                    PwdOk: {
+                        required: "◀请确认新号码",
+                        equalTo: "再次输入的密码不同"
+                    },
+                }
+            });
+        });
+
+
+        //
+        function subForm() {
+            $("#pwdform").submit();
+        }
+        function Afterupdatepwd(data) {
+            if (data == "false") {
+                alert("原始密码不正确，请重新填写。");
+            }
+           else if (data == "ok") {
+                alert("密码修改成功");
+               // window.location.href = "/Admin/CenterNeed";
+            } else if (data == "no") {
+                alert("密码修改失败，请重试");
+            } else { alert("有问题"); }
+        }
+    </script>
+
+</head>
+<body>
+    <div class="main">
+        <div class="main_top">
+            <div class="t"><a class="Pro" href="/Admin/zl">编辑资料</a><a class="Need" href="/Admin/Centerpwd">修改密码</a></div>
+        </div>
+      @using (Ajax.BeginForm("updatepwd", "Admin", new AjaxOptions() { HttpMethod = "post", OnSuccess = "Afterupdatepwd" }, new { id = "pwdform" }))
+                {
+            <div class="need">
+                <div class="list_1">
+                    <h2>当前密码：</h2>
+                    <input type="password" id="OldPwd" name="OldPwd" class="text3" />
+                    <span class="tip" id="tip1"></span>
+                </div>
+               
+                    <div class="list_1">
+                        <h2>新 密 码：</h2>
+                        <input type="password" id="Pwd" name="Pwd" class="text3" />
+                        <span class=" tip" id="tip2"></span>
+                    </div>
+                <div class="list_1">
+                    <h2>确认密码：</h2>
+                    <input type="password" id="PwdOk" name="PwdOk" class="text3" />
+                    <span class="tip" id="tip3"></span>
+                </div>
+                <div class="list_1">
+                    <input type="submit" class="submit" id="submit" value="提交" />
+                </div>
+            </div>}
+      
+    </div>
+
+</body>
+</html>

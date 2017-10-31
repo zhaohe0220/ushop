@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-收藏中心</title>
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".delete_a").click(function () {
+                deleteInfo($(this).attr("ids"), $(this));//删除信息
+            });
+        });
+        function deleteInfo(id, control) {
+            $.post("/Admin/DeleteCollection", { "id": id }, function (data) {
+                if (data == "ok") {
+                    $(control).parent().parent().remove();
+                    alert("删除成功");
+                } else {
+                    alert("删除失败，请稍后再试。");
+                }
+
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="content-all" style="width:100%;background-color:#F5F5F5;">
+        <div class="collection_head" style="height:40px;width:100%;background-color:#FA4332">
+        <div class="collection_head" style="padding-left:20px;height:40px;width:90%;margin:0 auto;background-color:#FA4332;min-width: 1215px;line-height:40PX;color:#FFF;font-size:20px;">我的收藏</div>
+        </div>
+        <div id="content">
+            <div id="item1" class="item">
+                <div class="m_list_collection">
+                    @if (ViewData["collectionList"] != null)
+                    {
+                        foreach (Model.ProductInfo collectlist in (List<Model.ProductInfo>)ViewData["collectionList"])
+                        {
+                            <div class="img_box_collection">
+                                <a href="/List/Detail?proid=@collectlist.ProductID" target="_blank"><img src="@collectlist.ProductImageAdd" alt="" /></a>
+
+                                <div class="title_collection">
+                                    <a href="/List/Detail?proid=@collectlist.ProductID" target="_blank">@collectlist.ProductName</a>
+
+                                </div>
+                                <div class="price_collection">
+                                    <h1>¥@collectlist.Price</h1>
+                                </div>
+                                <div class="delete"><a href="javascript:void(0)" class="delete_a" ids="@collectlist.Id">删除</a></div>
+                            </div>
+                        }
+                        <div class="clear"></div>}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

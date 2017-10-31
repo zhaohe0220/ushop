@@ -1,0 +1,10 @@
+E:\phpwww\bhtz\Common\bin\Debug\Common.dll
+E:\phpwww\bhtz\Common\bin\Debug\Common.pdb
+E:\phpwww\bhtz\Common\obj\Debug\Common.dll
+E:\phpwww\bhtz\Common\obj\Debug\Common.pdb
+E:\phpwww\bhtz\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+E:\www\bhtz\Common\bin\Debug\Common.dll
+E:\www\bhtz\Common\bin\Debug\Common.pdb
+E:\www\bhtz\Common\obj\Debug\Common.dll
+E:\www\bhtz\Common\obj\Debug\Common.pdb
+E:\www\bhtz\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache

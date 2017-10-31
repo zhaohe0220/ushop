@@ -1,0 +1,121 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>需求更新</title>
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <style type="text/css">
+        label.error {
+            padding-left: 16px;
+            padding-bottom: 2px;
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        //验证
+        $().ready(function () {
+            $("#needupdateform").validate({
+                rules: {
+                    Title: {
+                        required: true,
+                        maxlength: 25
+                    },
+                    Phone: {
+                        required: true,
+                        digits: true
+                    },
+                    QQ: {
+                       // required: true,
+                        digits: true
+                    },
+                    Detail: {
+                        required: true,
+                        maxlength: 500
+                    }
+                },
+                messages: {
+                    Title: {
+                        required: "◀请填写标题",
+                        maxlength: "◀标题不得超过25字"
+                    },
+                    Phone: {
+                        required: "◀请输入联系方式",
+                        digits: "◀请输入正确的联系方式"
+                    },
+                    QQ: {
+                       // required: "◀请输入QQ号码",
+                        digits: "◀请输入正确的联系方式"
+                    },
+                    Detail: {
+                        required: "◀请填写详细信息",
+                        maxlength: "◀详细信息不得超过500字"
+                    }
+                }
+            });
+        });
+        //
+        
+                function subForm() {
+                    $("#needupdateform").submit();
+                };
+        function AfterUpdateNeed(data) {
+            if (data == "ok") {
+              alert("更新成功");
+                window.location.href = "/Admin/CenterNeed";
+            } else if (data == "no") {
+                alert("更新失败，请稍后提交");
+            } else { alert("有问题"); }
+        }
+    </script>
+</head>
+<body>
+
+    <div class="main">
+        <div class="title">
+            <h1>发布需求</h1>
+        </div>
+
+        @using (Ajax.BeginForm("NeedUpdate", "Admin", new AjaxOptions() { HttpMethod = "post", OnSuccess = "AfterUpdateNeed" }, new { id = "needupdateform" }))
+        {
+          
+            <div class="need">
+                @foreach (Model.NeedInfo needInfo in (List<Model.NeedInfo>)ViewData["Needdetail"])
+                    {
+                    <div class="list_1">
+                        <h2>输入标题：</h2>
+                        <input type="text" id="Title" name="Title" value="@needInfo.Title" class="text1" />
+                        <span class="tip" id="tip1"></span>
+                    </div>
+                    <div class="list_1">
+                        <h2>联系方式：</h2>
+                        <input type="text" id="Phone" name="Phone" value="@needInfo.Phone" class="text3" />
+                        <span class="tip" id="tip2"></span>
+                    </div>
+                    <div class="list_1">
+                        <h2>Q Q 联系：</h2>
+                        <input type="text" id="QQ" name="QQ" class="text3" value="@needInfo.QQ" />
+                        <span class="tip" id="tip3"></span>
+                    </div>
+                    <div class="list_1">
+                        <h2>详细需求：</h2>
+                        <textarea id="Detail" class="Detail" name="Detail">@needInfo.Detail</textarea>
+                        <span class="tip" id="tip4"></span>
+                    </div>
+                    <div class="list_1">
+                        <input type="submit" class="submit" id="submit" value="提交" />
+                    </div>}
+</div>}
+        
+    </div>
+</body>
+</html>

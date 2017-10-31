@@ -1,0 +1,66 @@
+﻿input,textarea{outline:none;}
+.detail_content{ border-right: 1px solid #0088bb; width: 90%;margin: 0 auto;margin-top:5px; min-width: 1215px;}
+.detail_content .detail_main{width:75%;float:left;border:1px solid #0088bb;}
+.detail_content .detail_main_top{width:100%;height:382px;border-bottom:1px solid #0088bb;border-top:1px solid #0088bb;}
+.detail_content .image_show{width:40%;height:380px;float:left;border:1px solid #d4d4d4;}
+.detail_content .image_show img{width:80%;height:360px;margin-top:8px;margin-left:10%;max-width:80%;}
+.detail_content .intro{width:59%;height:380px;float:right;}
+.detail_content .intro ul{float:left;margin-top:5px;}
+.detail_content .intro li{height:20px;text-align:left;margin-top:30px;margin-left:30px;}
+.detail_content .intro li a{font-size:14px;color:red;text-decoration:none;}
+.detail_content .intro li a:hover{text-decoration:underline;color:red;}
+.detail_content .intro li h1{font-size:18px;color:red;}
+.detail_content .intro .num{width:40px;height:20px;float:left;margin-top:3px;border:1px solid red;text-align:center;}
+.detail_content .intro li .title h1{float:left;}
+.detail_content .intro li .title h2{font-family:'Lucida Handwriting';color:red;}
+.detail_content .xxxx{width:100%;background-color:#f1f3f8;height:30px;line-height:30px;}
+.detail_content .xxxx h5{margin-left:1%;}
+.detail_content .detail_intro{width:98%;/*border:1px solid #0088bb;*/padding:10px 10px;margin:0px auto;}
+.detail_content .hot_list{float:right;width:24%;border:1px solid #0088bb;border-right:none;}
+.detail_content .hot_list .tlrx{width:100%;height:30px;line-height:30px;border-bottom:1px solid #0088bb;}
+.detail_content .hot_list .hot{width:100%;}
+.detail_content .hot_list .hot .list_img_box{border:1px solid #d4d4d4;margin-left:3%;height:165px;width:45%;margin-top:1.5%; float:left;}
+               .hot_list .hot .list_img_box img {
+                   max-width:100%;
+                    border: none;
+                    width: 100%;
+                    height:150px;
+                   
+                }
+
+                .hot_list .list_img_box .list_price {
+                    height: 30px;
+                    text-align: left;
+                    line-height:30px;
+                }
+
+                    .hot_list .list_img_box .list_price h1 {
+                        font-size: 18px;
+                        color: #f40;
+                        margin-left:3%;
+                    }
+
+               .hot_list .list_img_box .list_title {
+                    height: 40px;
+                    text-align: left;
+                    width: 97%;
+                    margin-left:3%;
+                }
+
+                   .hot_list .list_img_box .list_title a {
+                        color: black;
+                        text-decoration: none;
+                        font-size: 12px;
+                    }
+
+                       .hot_list .list_img_box .list_title a:hover {
+                            text-decoration: underline;
+                            color: #FF8C00;
+                            text-decoration-color: #FF8C00;
+                        }
+
+
+
+
+
+

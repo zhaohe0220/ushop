@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/Gly.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-</title>
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".delete").click(function () {
+                noInfo($(this).attr("ids"), $(this),2);//拒绝发布信息
+            });
+            $(".update").click(function () {
+                yesInfo($(this).attr("ids"), $(this),1);//同意信息
+            });
+        });
+        function noInfo(id, control, temp) {
+            $.post("/Gly/shenheProduct", { "id": id, "temp": 2 }, function (data) {
+                if (data == "ok") {
+                    $(control).parent().parent().parent().parent().remove();
+                    alert("拒绝成功");
+                } else {
+                    alert("操作失败请重试！");
+                }
+            });};
+            function yesInfo(id, control, temp) {
+                $.post("/Gly/shenheProduct", { "id": id, "temp": 1 }, function (data) {
+                    if (data == "ok") {
+                        $(control).parent().parent().parent().parent().remove();
+                        alert("审核通过");
+                    } else {
+                        alert("操作失败请重试！");
+                    }
+                });
+            };
+        </script>
+</head>
+<body>
+  
+   
+    <div class="gly_pro">
+        <div>商品审核</div>
+        <br />
+ @if (ViewData["GlyList"] != null)
+ {
+     foreach (Model.ProductInfo GlyList in (List<Model.ProductInfo>)ViewData["GlyList"])
+     {
+                        <div class="gly_img_box">
+                            <a href="/List/Detail?proid=@GlyList.ProductID"><img src="@GlyList.ProductImageAdd" alt="" /></a>
+                            <div class="gly_title">
+                                <a target="_blank" href="/List/Detail?proid=@GlyList.ProductID">@GlyList.ProductName</a>
+                            </div>
+                            <div class="gly_cz">
+                                <ul>
+                                    <li><a class="ok" href="/List/Detail?proid=@GlyList.ProductID" target="_blank">查看</a></li>
+                                    <li><a class="update" id="update" href="javascript:void(0)" ids="@GlyList.ProductID">通过</a></li>
+                                    <li><a class="delete" id="delete" href="javascript:void(0)" ids="@GlyList.ProductID">拒绝</a></li>
+                                </ul>
+                            </div>
+                        </div>}
+ }
+
+            <div class="clear"></div>
+
+
+        <p class="page">
+            @MvcHtmlString.Create(Common.NeedPage.NeedPageBar((int)ViewData["pageIndex"], (int)ViewData["pageCount"]))
+        </p>
+
+
+        </div>
+
+
+
+
+</body>
+</html>

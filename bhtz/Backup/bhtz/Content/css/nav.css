@@ -1,0 +1,117 @@
+﻿.wrap { 
+    float: left;
+    /*width: 16%;*/
+    width:203px;
+}
+
+    .wrap .all-sort-list {
+        position: relative;
+        width: 100%;
+        border: 2px solid blue;
+        border-top: none;
+        padding: 3px 3px 3px 0px;
+         background: #F5F5F5;
+    }
+
+        .wrap .all-sort-list .item {
+            height: 35px;
+            border-top: 1px solid #FFFFFF;
+        }
+
+            .wrap .all-sort-list .item.bo {
+                border-top: none;
+            }
+
+            .wrap .all-sort-list .item h3 {
+               
+                height: 32px;
+                line-height: 32px;
+                border: 1px 0px;
+                font-size: 16px;
+                font-weight: normal;
+                width: 99%;
+                overflow: hidden;
+            }
+
+        .wrap .all-sort-list .hover h3 {
+            position: relative;
+            z-index: 13;
+            background: #FFF;
+            border-color: #DDD;
+            border-width: 1px 0px;
+            border-style: solid;
+        }
+
+        .wrap .all-sort-list .item span {
+            padding: 0px 5px;
+            color: #A40000;
+            font-family: "\5B8B\4F53";
+        }
+
+        .wrap .all-sort-list .item a {
+            color: #000;
+            text-decoration: none;
+        }
+
+            .wrap .all-sort-list .item a:hover {
+                font-weight: bold;
+                color: #E4393C;
+            }
+
+
+        .wrap .all-sort-list .item-list {
+            display: none;
+            position: absolute;
+            /*width:505px;*/
+            /*min-height:200px;*/
+            /*_height:100px;*/
+            background: #FFF;
+            left: 97%;
+            box-shadow: 0px 0px 10px #DDDDDD;
+            border: 1px solid #DDD;
+            top: 3px;
+            z-index: 10;
+        }
+
+            .wrap .all-sort-list .item-list .subitem {
+                float: left; /*width:477px;*/
+                width: 300px;
+                padding: 0px 4px 0px 8px;
+            }
+
+                .wrap .all-sort-list .item-list .subitem dl {
+                    border-top: 1px solid #EEE;
+                    padding: 6px 0px;
+                    overflow: hidden;
+                    zoom: 1;
+                }
+
+                .wrap .all-sort-list .item-list .subitem .fore1 {
+                    border-top: none;
+                }
+
+                .wrap .all-sort-list .item-list .subitem dd {
+                    float: left; /*width:515px;*/
+                    padding: 3px 0px 0px;
+                    overflow: hidden;
+                }
+
+                    .wrap .all-sort-list .item-list .subitem dd em {
+                        float: left;
+                        height: 14px;
+                        line-height: 14px;
+                        padding: 4px 8px; /*margin-top:5px;*/
+                        border-left: 1px solid #CCC;
+                    }
+
+                        .wrap .all-sort-list .item-list .subitem dd em a {
+                            color: #666;
+                            text-decoration: none;
+                            font-size: 12px;
+                            font-style: normal;
+                        }
+
+                            .wrap .all-sort-list .item-list .subitem dd em a:hover, .item-list .cat-right dd a:hover {
+                                font-weight: normal;
+                                text-decoration: underline;
+                            }

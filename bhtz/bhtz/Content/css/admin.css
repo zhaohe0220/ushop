@@ -1,0 +1,112 @@
+﻿input,textarea{outline:none;}
+.main{width:1000px;margin:20px auto;min-height:427px;}
+.main_left,.main_right{width:499px;border-right:1px solid #FA4332;height:427px;}
+.main_left{float:left;}
+.main_right{float:right;}
+.main_top{margin-top:10px;width:100%;height:20px;margin:10px auto; border-bottom: 2px solid #FA4332;}
+.main_top .t{font-size: 16px;
+            font-weight: bold;
+            text-align:center;
+            }
+.main_top .t a.Pro{
+     color:black;
+            text-decoration:none;
+}
+.main_top .t a.Need{
+     color:black;
+            text-decoration:none;
+}
+.main_top .t a.Pro:hover{text-decoration:underline;}
+.main_top .t a.Need:hover{text-decoration:underline;}
+
+.main_buttom{width:100%;}
+.main_buttom .title{height:32px;background-color:#d4d4d4;border:1px solid #FA4332;width:100%;}
+
+
+.main_buttom .title .title_1{width:350px;text-align:center;float:left;line-height:32px;}
+.main_buttom .title .title_2{width:130px;text-align:center;float:left;line-height:32px;}
+.main_buttom .title .title_3{width:250px;text-align:center;float:left;line-height:32px;}
+.good_list{width:100%;margin-top:10px;margin-bottom:10px;}
+.good_list .good_list_top{height:30px;line-height:30px;background-color:#c4f8ec;}
+.good_list .good_list_top p{font-size:12px;color:black;font-weight:bold;text-align:left;margin-left:20px;}
+
+.good_list .good_list_buttom{height:120px;border:1px solid #d4d4d4;border-right:none;}
+.good_list .good_list_buttom .title_1{width:352px;height:120px;float:left;border-right:1px solid #d4d4d4;}
+.good_list .good_list_buttom .title_2{width:128px;height:120px;text-align:center;line-height:120px;float:left;border-right:1px solid #d4d4d4;}
+.good_list .good_list_buttom .title_zt{width:128px;height:120px;text-align:center;float:left;line-height:120px; border-right:1px solid #d4d4d4;}
+.good_list .good_list_buttom .title_1 .img{width:100px;height:120px;float:left;}
+.good_list .good_list_buttom .title_1 .img img{width:100%;height:100%;}
+.good_list .good_list_buttom .title_1 .shuoming{width:240px;height:110px;text-align:left;float:right;margin-top:10px;border-right:1px solid #d4d4d4;}
+.good_list .good_list_buttom .title_1 .shuoming a{text-decoration:none;margin-top:20px;}
+.good_list .good_list_buttom .title_1 .shuoming a:hover{color:red;text-decoration-line:underline;}
+.good_list .good_list_buttom .title_3{width:258px;line-height:120px;float:left;border-right:1px solid #d4d4d4;}
+.good_list .good_list_buttom .title_3 .ok{padding:6px;background-color:#0088bb;border-radius:2px;color:white;text-decoration:none;margin-left:26px;}
+.good_list .good_list_buttom .title_3 .delete{padding:6px;background-color:#0088bb;border-radius:2px;color:white;text-decoration:none;margin-left:26px;}
+.good_list .good_list_buttom .title_3 .update{padding:6px;background-color:#0088bb;border-radius:2px;color:white;text-decoration:none;margin-left:26px;}
+
+/*------------------------------*/
+.main_buttom .notice_head {
+            height: 40px;
+            border-bottom: 1px dotted #fa4332;
+        }
+.main_buttom .notice_head .a{width:400px;float:left;}
+.main_buttom .notice_head .b{width:300px;float:left;text-align:center;}
+.main_buttom .notice_head .c{width:200px;float:left;text-align:center;}
+.main_buttom .notice_head .d{width:100px;float:left;text-align:center;}
+            .main_buttom .notice_head .a a {
+                color: black;
+                margin-left: 6%;
+                text-decoration: none;
+                font-size: 20px;
+            }
+
+           .main_buttom .notice_head .b h5 {
+               text-align:center;
+                color: black;
+                font-size: 20px;
+            }
+            .main_buttom .notice_head .c h5 {
+               text-align:center;
+                color: black;
+              
+                font-size: 20px;
+            }
+             .main_buttom .notice_head .d h5 {
+               text-align:center;
+                color: black;
+              
+                font-size: 20px;
+            }
+
+       .main_buttom .notice {
+            height: 30px;
+            line-height: 30px;
+            border-bottom: 1px dotted #FA4332;
+        }
+      .main_buttom .notice .needtitle{width:400px;float:left;text-align:left;}
+           .main_buttom .notice .needtitle a {
+                color: black;
+                text-decoration: none;
+                font-size: 18px;
+            }
+
+               .main_buttom .notice .needtitle a:hover {
+                    text-decoration: underline;
+                    color: #fa4332;
+                    text-decoration-color: #fa4332;
+                }
+               .main_buttom .notice .needtime{width:300px;float:left;text-align:center;}
+           .main_buttom .notice .needtime h5 {
+                color: #999;
+                font-size: 16px;
+               
+            }
+           .main_buttom .notice .needzt{width:100px;float:left;text-align:center;}
+
+
+            .main_buttom .notice .cz{width:200px;float:left;}
+             .main_buttom .notice .cz a{margin-left:20px;color:black;text-decoration:none;}
+             .main_buttom .notice .cz a:hover{text-decoration:underline;}
+
+        
+            

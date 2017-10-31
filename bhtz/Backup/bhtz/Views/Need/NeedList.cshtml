@@ -1,0 +1,31 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+@using Common;
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>需求列表</title>
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+</head>
+<body>
+ 
+    <div id="content">
+        <div class="item">
+            <div class="notice_head"><a>标题</a><h5>时间</h5></div>
+            @if (ViewData["needlist"] != null)
+            {
+                foreach (Model.NeedInfo NeedInfo in (List<Model.NeedInfo>)ViewData["needlist"])
+                {
+                <div class="notice"><a href="/Need/NeedDetail?nid=@NeedInfo.Id" target="_blank">@NeedInfo.Title</a><h5>@NeedInfo.ReleaseTime</h5></div>}
+                                                                                                                                   <p class="page">
+         @MvcHtmlString.Create(NeedPage.NeedPageBar((int)ViewData["pageIndex"], (int)ViewData["pageCount"]))
+        </p>
+            }
+            else { <div class="nolist">暂无数据</div>}
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+E:\phpwww\bhtz\DAL\bin\Debug\DAL.dll
+E:\phpwww\bhtz\DAL\bin\Debug\DAL.pdb
+E:\phpwww\bhtz\DAL\obj\Debug\DAL.dll
+E:\phpwww\bhtz\DAL\obj\Debug\DAL.pdb
+E:\phpwww\bhtz\DAL\bin\Debug\Model.dll
+E:\phpwww\bhtz\DAL\bin\Debug\Model.pdb
+E:\phpwww\bhtz\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+E:\www\bhtz\DAL\bin\Debug\DAL.dll
+E:\www\bhtz\DAL\bin\Debug\DAL.pdb
+E:\www\bhtz\DAL\bin\Debug\Model.dll
+E:\www\bhtz\DAL\bin\Debug\Model.pdb
+E:\www\bhtz\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+E:\www\bhtz\DAL\obj\Debug\DAL.dll
+E:\www\bhtz\DAL\obj\Debug\DAL.pdb

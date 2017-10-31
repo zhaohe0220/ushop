@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>注册</title>
+    <link href="~/Content/css/Index.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="login_banner">
+        <div class="banner_center">
+            <div class="loginbar">
+                <a href="#"><img src="" /></a>
+            </div>
+        </div>
+    </div>
+    <div class="register_box">
+        <div class="text">
+            输入用户名：<input type="text" name="LoginCode" id="=username" class="login_input" />
+        </div>
+        <div class="text">
+            请输入密码：<input type="text" name="LoginPwd" id="=LoginPwd" class="login_input" />
+        </div>
+        <div class="text">
+            请确认密码：<input type="text" name="LoginPwd" id="=LoginPwd" class="login_input" />
+        </div>
+        <div class="text">
+            输入验证码：
+            <input type="text" name="Code" id="Code" class="login_input" width="50" />
+        </div>
+        <div class="text">
+            <img id="img" src="#" alt="" />
+
+            <a href="javascript:void(0)" onclick="changeCode();return false;">看不清，换一张</a>
+        </div>
+        <div class="text">
+            <input type="checkbox" />我已阅读并同意遵守<a href="">《跳蚤用户服务协议》</a>
+        </div>
+        <div class="text">
+            <input type="submit" name="register" id="register" class="btn" value="同意协议并注册" />
+        </div>
+    </div>
+</body>
+</html>

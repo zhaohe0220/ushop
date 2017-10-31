@@ -1,0 +1,40 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Common;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Search</title>
+</head>
+<body>
+    <div id="content">
+        @if (ViewData["list"] != null)
+        {
+            <div class="item">
+
+                @foreach (Model.ProductInfo productInfo in (List<Model.ProductInfo>)ViewData["list"])
+                {
+
+                    <div class="list_img_box">
+                        <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank"><img src="@productInfo.ProductImageAdd" alt="" /></a>
+                        <div class="list_price">
+                            <h1>￥@productInfo.Price</h1>
+                        </div>
+                        <div class="list_title">
+                            <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank">@productInfo.ProductName</a>
+                        </div>
+                    </div>
+
+                }<div class="clear"></div>
+                <p class="page">
+                    @MvcHtmlString.Create(PageBar.GetPageBar(ViewData["id"].ToString(), (int)ViewData["pageIndex"], (int)ViewData["pageCount"]))
+                </p>
+            </div>}
+        else
+        { <div class="nolist">暂无数据</div>}
+    </div>
+</body>
+</html>

@@ -1,0 +1,184 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-商品详细信息</title>
+    <link href="~/Content/css/Detail.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#collection").click(function () {
+                collection($(this).attr("ids"), $(this));
+            });
+        })
+
+        function collection(id, control) {
+            $.post("/Admin/setCollection", { "id": id }, function (data) {
+                if (data == "err") {
+                    $(".collection").attr("dis")
+                }
+                if (data == "ok") {
+                    alert("收藏成功");
+                } else if (data == "no") {
+                    alert("收藏失败,请稍后再试。");
+                } else {
+                    alert("网络问题");
+                }
+            });
+        }
+      
+        //内部图片大小
+        $(function () {
+            var long = document.getElementById("conimg").clientWidth;
+            var imglist = document.getElementsByTagName("img");
+            for (var i = 0; i < imglist.length; i++) {
+                var img = imglist[i];
+                if (img.clientWidth > long) {
+                    img.style.width = "100%";
+                    img.style.height = "100%";
+                }
+            }
+        })
+    </script>
+</head>
+<body style="background-color:#fff;">
+  
+
+    <div class="detail_content">
+        <div class="detail_main">
+            @if (ViewData["detaillist"] != null)
+            {
+                foreach (Model.ProductInfo detaillist in (List<Model.ProductInfo>)ViewData["detaillist"])
+                {
+                    <div class="detail_main_top">
+                        <div class="image_show"> <img src="@detaillist.ProductImageAdd" /> </div>
+                        <div class="intro">
+                            <ul>
+                                <h1 class="span1">@detaillist.ProductName</h1>
+                                <a style="font-size:12px;" target="_blank" href="/List/Other?id=@detaillist.UserID">（查看此人其他物品）</a>
+                                <li>
+                                    <div id="price">
+                                        <h1> 价格：<span>￥@detaillist.Price</span></h1>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div></div>
+                                    <div class="title">
+                                        <h1>商品数量：<span>@detaillist.ProductNum</span></h1>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div></div>
+                                    <div class="title">
+                                        <h1>发布时间：@detaillist.ReleaseTime</h1>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div></div>
+                                    <div class="title">
+                                        <h1>联系方式:</h1>
+                                    </div>
+                                </li>
+
+                                @if (Session["userInfo"] == null)
+                                {
+                                    <li>
+                                        <div></div>
+                                        <div class="title">
+                                            <h1><span>您尚未登录，不能查看卖家联系方式</span></h1>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </li> 
+
+                                }
+                                else
+                                {
+                                    <li>
+                                        <div></div>
+                                        <div class="title">
+                                            @if (detaillist.QQ != null)
+                                            { <h1>QQ：<span>@detaillist.QQ</span></h1>}
+                                            else
+                                            {<h1>QQ:<span>无QQ</span></h1>}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div></div>
+                                        <div class="title">
+                                            <h1>
+                                                手机:<span>
+                                                    @detaillist.Phone
+                                                </span>
+                                            </h1>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div></div>
+                                        <div class="title">
+                                            <a id="collection" class="sc" href="javascript:void(0)" ids="@detaillist.Id">★收藏商品(@detaillist.Collection 人气)</a>
+                                        </div>
+                                    </li>
+                                }
+                                <div id="share"> <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div></div>
+
+                            </ul>
+                        </div>
+                    </div>
+                
+                <div class="clear"></div>
+                <div class="xxxx">
+                    <h5>详细信息</h5>
+                </div>
+                <div class="detail_intro" id="conimg">
+                    @Html.Raw(detaillist.ProductIntroduce)
+                </div>}}
+        </div>
+        <div class="hot_list" id ="hot">
+            <div class="tlrx">
+                <h5>同类物品</h5>
+            </div>
+            <div class="hot">
+@if (ViewData["plist"] != null)
+{
+    foreach (Model.ProductInfo plist in (List<Model.ProductInfo>)ViewData["plist"])
+    {
+                <div class="list_img_box">
+                    <a href="/List/Detail?proid=@plist.ProductID"><img src="@plist.ProductImageAdd" alt="" title="@plist.ProductName" /></a>
+                    <div class="list_title"><a href="/List/Detail?proid=@plist.ProductID">@plist.ProductName</a></div>
+                </div>
+    }
+}
+else
+{ <div>无相关产品</div>}
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        //content内部图片大小
+        $(function () {
+            var long = document.getElementById("conimg").clientWidth;
+            var imglist = document.getElementsByTagName("img");
+            for (var i = 0; i < imglist.length; i++) {
+                var img = imglist[i];
+                if (img.clientWidth > long) {
+                    img.style.width = "100%";
+                    img.style.height = "100%";
+                }
+            }
+        });
+    </script>
+    <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": ["mshare", "qzone", "tsina", "weixin", "renren", "tqq", "bdxc", "tqf", "tieba", "sqq", "duitang", "fx", "mail", "copy"], "bdPic": "", "bdStyle": "1", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>大学生电子交易平台</title>
+    <link href="~/Content/css/Detail.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="detail_content">
+        
+            <div class="detail_main">
+                @if (ViewData["detaillist"] != null)
+                {
+                    foreach (Model.ProductInfo detaillist in (List<Model.ProductInfo>)ViewData["detaillist"])
+                    {
+                        <div class="detail_main_top">
+                            <div class="image_show">
+                                <img src="@detaillist.ProductImageAdd" />
+                            </div>
+                            <div class="intro">
+                                <ul>
+                                    <li>
+                                        <a>@detaillist.ProductName</a>
+                                    </li>
+                                    <li>
+                                        <h1>价格：￥@detaillist.Price</h1>
+                                    </li>
+                                    <li>
+                                        <div class="title">
+                                            <h1>商品数量：@detaillist.ProductNum</h1>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="title">
+                                            <h1>发布时间：@detaillist.ReleaseTime</h1>
+                                        </div>
+                                    </li>
+                                    @if (Session["userInfo"] == null)
+                                    {
+                                        <li>
+                                            <div class="title">
+                                                <h1>联系方式:</h1> <p>您尚未登录，不能查看卖家联系方式，现在<a href="/Index/Login">登录</a></p>
+                                            </div>
+                                        </li> }
+                                    else
+                                    {
+                                        <li>
+                                            @*<div class="title"><a href="#">立即购买</a></div>
+                                            <div class="title"><a href="#">添加收藏</a></div>*@
+                                            <div class="title">
+                                                @*<h1>联系方式:</h1> <a href="tencent://message/?uin=@detaillist.QQ&Site=qq&Menu=yes">
+                                                    @detaillist.QQ 点击联系卖家
+                                                </a>*@
+
+                                                @if (detaillist.QQ != null){ <h1>QQ联系：</h1><h2>@detaillist.QQ</h2>}
+                                                                                                                else{<h1>QQ联系:无QQ</h1>}
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="title">
+                                                <h1>电话联系：</h1><h2>@detaillist.Phone</h2>
+                                            </div>
+                                        </li>}
+                                </ul>
+                            </div>
+
+                        </div><div class="clear"></div>
+                        <div class="xxxx"><h5>详细信息</h5></div>
+                        <div class="detail_intro">
+                            @Html.Raw(detaillist.ProductIntroduce)
+                        </div>}
+                }
+
+            </div>
+            <div class="hot_list">
+                <div class="tlrx"><h5>同类热销</h5></div>
+                <div class="hot">
+                    @if (ViewData["plist"] != null)
+                    {
+                        foreach (Model.ProductInfo plist in (List<Model.ProductInfo>)ViewData["plist"])
+                        {
+                            <div class="list_img_box">
+                                <a href="/List/Detail?proid=@plist.ProductID"><img src="@plist.ProductImageAdd" /></a>
+                                @*<div class="list_price">
+                                    <h1>@plist.Price</h1>
+                                </div>
+                                <div class="list_title">
+                                    <a href="/List/Detail?proid=@plist.ProductID">@plist.ProductName</a>
+                                </div>*@
+                            </div>
+
+                        }
+                    }
+                    else
+                    { <div>无相关产品</div>}
+                </div><div class="clear"></div>
+               
+
+
+            </div>
+            <div class="clear"></div>
+        
+    </div>
+</body>
+</html>

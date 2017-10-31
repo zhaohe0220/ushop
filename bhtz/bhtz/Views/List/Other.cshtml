@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+@using Common;
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>卖家其他商品</title>
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="content">
+        @if (ViewData["otherlist"] != null)
+        {
+            <div class="item">
+
+                @foreach (Model.ProductInfo otherproduct in (List<Model.ProductInfo>)ViewData["otherlist"])
+                {
+
+                    <div class="list_img_box">
+                        <a href="/List/Detail?proid=@otherproduct.ProductID" target="_blank"><img src="@otherproduct.ProductImageAdd" alt="" /></a>
+                        <div class="list_price">
+                            <h1>￥@otherproduct.Price</h1>
+                        </div>
+                        <div class="list_title">
+                            <a href="/List/Detail?proid=@otherproduct.ProductID" target="_blank">@otherproduct.ProductName</a>
+                        </div>
+                    </div>
+
+                }<div class="clear"></div>
+                <p class="page">
+                    @MvcHtmlString.Create(PageBar.GetPageBar(ViewData["otherid"].ToString(), (int)ViewData["pageIndex"], (int)ViewData["pageCount"]))
+                </p>
+            </div>}
+        else
+        { <div class="nolist">暂无数据</div>}
+    </div>
+</body>
+</html>

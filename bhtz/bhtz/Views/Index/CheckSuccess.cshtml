@@ -1,0 +1,210 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-验证成功</title>
+    <link rel="shortcut icon" href="~/Content/img/ico.ico">
+    <link rel="bookmark" href="~/Content/img/ico.ico" />
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <style type="text/css">
+        label.error {
+            padding-left: 16px;
+            padding-bottom: 2px;
+            color: red;
+        }
+    </style>
+<script src="http://siteapp.baidu.com/static/webappservice/uaredirect.js" type="text/javascript"></script><script type="text/javascript">uaredirect("http://siteapp.baidu.com/webapp/www.bingowang.com","http://www.bingowang.com");</script>
+    <script type="text/javascript">
+
+        //收藏功能
+        function AddFavorite(sURL, sTitle) {
+            sURL = encodeURI(sURL);
+            try {
+                window.external.addFavorite(sURL, sTitle);
+            } catch (e) {
+                try {
+                    window.sidebar.addPanel(sTitle, sURL, "");
+                } catch (e) {
+                    alert("加入收藏失败,请使用Ctrl+D进行添加,或手动在浏览器里进行设置.");
+                }
+            }
+        }
+
+        $(function () {
+            $(".logout").click(function () {
+                userlogout();//删除信息
+
+            });
+        });
+        function userlogout() {
+            $.post("/Index/userlogout", function (data) {
+                if (data == "ok") {
+                    window.location.href = "/Index/Index";
+                } else {
+                    alert("删除失败,请稍后再试。");
+                }
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        //验证
+        //$().ready(function () {
+        //    $("#mesform").validate({
+        //        rules: {
+
+        //            Phone: {
+        //                digits: true
+        //            },
+        //            QQ: {
+        //                digits: true
+        //            },
+        //        },
+        //        messages: {
+        //            Phone: {
+        //                digits: "◀请输入正确的联系方式"
+        //            },
+        //            QQ: {
+        //                digits: "◀请输入正确的联系方式"
+        //            },
+        //        }
+        //    });
+        //});
+
+
+        //
+        function subForm() {
+            $("#addUserMesForm").submit();
+        };
+        function afterAddusermes(data) {
+            if (data == "ok") {
+                alert("信息编辑成功");
+                window.location.href="/Index/Index"
+            } else if (data == "no") {
+                alert("信息编辑失败，请重试");
+            } else { alert("有问题"); }
+        };
+    </script>
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5ce28a1cd0f48bd4ea46e417a6925277";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+    </script>
+
+</head>
+<body>
+    <div class="header">
+        <div class="header-center">
+            <div class="header-center-left">
+                <ul>
+                    <li>
+                        <a href="/Index/Index">滨购首页</a>
+                    </li>
+                    <li>
+                        <a onClick="AddFavorite('http://www.bingowang.com', '滨购网-校内物品交易平台')" href="javascript:void(0)" title="加入收藏">收藏滨购</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="header-center-right">
+                <ul>
+                    @if (Session["userInfo"] == null)
+                    {
+                        <li><a>欢迎来到滨购网</a></li>
+                        <li><a href="/Index/Login">[登录]</a></li>
+                        <li><a href="/Index/register">[注册]</a></li>
+                    }
+                    else
+                    {
+                        <li><a>欢迎您，@Session["userInfo"]</a></li>
+                        <li><a href="javascript:void(0)" id="logout" class="logout">[退出]</a></li>
+                    }
+
+                    <li class="li-xl">
+                        <a href="/Admin/Collection">我的收藏</a><i></i>
+                        <div class="khfu-bottom">
+                            <ul>
+                                <li><a href="/Admin/Collection">商品收藏</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="li-xl">
+                        <a href="/Admin/CenterPro">个人中心</a>
+                        <div class="khfu-bottom">
+                            <ul>
+                                <li><a href="/Admin/CenterPro">商品管理</a></li>
+                                <li><a href="/Admin/CenterNeed">需求管理</a></li>
+                                <li><a href="/Admin/zl">个人信息</a></li>
+                            </ul>
+                        </div>
+                    </li>
+  <li class="li-xl">
+                        <a>扫码穿越</a>
+                        <div class="khfu-bottom">
+                            <ul>
+                                <li><a>官方群码</a><img src="~/Content/img/qunma.jpg" /></li>
+                                <li><a>手机站码</a><img src="~/Content/img/shoujima.png" /></li>
+                               
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="/Static/about">关于我们</a></li>
+                    <li><a href="/Static/lianxi">联系我们</a></li>
+                    <li class="li-xl">
+                        <a href="/Static/lianxi">客户服务</a>
+                        <div class="khfu-bottom">
+                            <ul>
+                                <li><a href="/Static/lianxi">联系客服</a></li>
+                                <li><a href="/Static/Backfeed">意见建议</a></li>
+                                <li><a href="/Static/Backfeed">我要投诉</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <a href="http://www.bingowang.com"><img src="~/Content/img/bingo.png" style="margin-left:134.9px;margin-top:30px;" /></a>
+    <div class="main">
+       <h1 style="margin-top:10px;margin-left:20px;font-size:24px;">验证成功，请完善个人信息</h1>
+        @using (Ajax.BeginForm("addUserMes", "Index", new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterAddusermes" }, new { id = "addUserMesForm" }))
+        {
+
+            <div class="need" style="margin-top:50px;">
+                <div class="list_1">
+                    <h2>电话联系：</h2>
+                    <input type="text" id="Phone" name="Phone" class="text3" />
+                    <span class="tip" id="tip3"></span>
+                </div>
+                <div class="list_1">
+                    <h2>Q Q 联系：</h2>
+                    <input type="text" id="QQ" name="QQ" class="text3" />
+                    <span class="tip" id="tip3"></span>
+                </div>
+                <div class="list_1">
+                    <input type="submit" class="submit" id="submituser" value="提交" />
+                </div>
+                <div class="list_1">
+                    <h2 style="margin-left:200px;"><a href="/Index/Index">以后再说，直接去购物</a></h2>
+                </div>
+            </div>
+        }
+
+    </div>
+</body>
+</html>

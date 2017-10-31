@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="~/Content/img/bg.ico">
+    <title>登录</title>
+    <link href="~/Content/css/Index.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript">
+         function changeCode() {
+                  $("#img").attr("src", $("#img").attr("src") + 1);
+        }
+         var url = document.referrer;
+         function afterLogin(data) {
+            var serverData=data.split(':')
+            if (serverData[0] == "ok") {
+                window.location.href = url;
+               
+            } else if (serverData[0] == "no") {
+                $("#mes").text(serverData[1]);
+                changeCode();
+            } else {
+                $("#mes").text("系统繁忙！");
+            }
+         }
+   
+    </script>
+  
+
+</head>
+<body>
+  
+    <div class="login_banner">
+        <div class="banner_center">
+            <div class="loginbar">
+                <a href="/Index/Index"><img src="~/Content/img/bingou.jpg" /></a>
+            </div>
+        </div>
+    </div>
+
+   
+@using (Ajax.BeginForm("UserLogin", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterLogin" }, new { id = "loginForm" }))
+    {
+        <div class="login_box">
+            <div class="text">
+                用户名：<input type="text" name="LoginCode" id="username" class="login_input" />
+            </div>
+            <div class="text">
+                密&nbsp;码：<input type="password" name="LoginPwd" id="LoginPwd" class="login_input" />
+                <h6>用户可使用学号和初始密码（123456）登录系统，建议登录后修改初始密码。</h6>
+            </div>
+           
+              <div class="text">
+                  验证码：
+                  <input type="text" name="vCode" id="Code" class="login_input" width="50" />
+              </div>
+              <div class="text">
+                  <img id="img" src="/Index/ShowCode/?id=1" alt="" />
+                 
+                
+                  <a href="javascript:void(0)" onclick="changeCode();return false;">看不清，换一张</a>
+              </div>
+              <div class="text">
+                  <span id="mes"></span>
+              </div>
+            <div class="text">
+                <input type="submit" value="" name="login" id="login" style="width:309px; height:36px;border:none; background: url(../Content/img/login_btn.jpg) left top no-repeat;">
+            </div>
+           
+        </div>
+   
+    }
+
+</body>
+</html>

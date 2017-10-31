@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="Glytop">
+        <div class="Gly">
+            <h1>当前管理员：@Session["glyInfo"]</h1>
+        </div>
+        <div class="ahref">
+            <ul>
+                <li><a href="/Gly/GlyPro">商品管理</a></li>
+                <li><a href="/Gly/GlyNeed">需求管理</a></li>
+                <li><a href="/Gly/Glyadd">添加管理员</a></li>
+                <li><a href="/Gly/Allgly">查看管理员</a></li>
+                <li><a href="/Gly/Publishgg">发布公告</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

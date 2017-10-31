@@ -1,0 +1,109 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="shortcut icon" href="~/Content/img/ico.ico">
+    <link rel="bookmark" href="~/Content/img/ico.ico" />
+    <title>滨购网-登录</title>
+    <link href="~/Content/css/Index.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<script src="http://siteapp.baidu.com/static/webappservice/uaredirect.js" type="text/javascript"></script><script type="text/javascript">uaredirect("http://siteapp.baidu.com/webapp/www.bingowang.com","http://www.bingowang.com");</script>
+    <script type="text/javascript">
+       
+        $(function () {
+            $("#login").click(function () {
+                $(".wait").css("display", "block");
+                $("#login").css("display", "none");
+            })
+        });
+
+         function changeCode() {
+                  $("#img").attr("src", $("#img").attr("src") + 1);
+         }
+         var url = document.referrer.toString();
+         var currentUrl = window.location.href;
+         function afterLogin(data) {
+            var serverData=data.split(':')
+            if (serverData[0] == "ok") {
+                if (url == currentUrl) {
+                    window.location.href = "Index/Index";
+                } else {
+                    window.location.href = url;
+                }
+                
+            } else if (serverData[0] == "no") {
+                $("#mes").text(serverData[1]);
+                changeCode();
+                $(".wait").css("display", "none");
+                $("#login").css("display", "block");
+            } else {
+                $("#mes").text("系统繁忙！");
+                $(".wait").css("display", "none");
+                $("#login").css("display", "block");
+            }
+         }
+   
+    </script>
+    @*站长统计*@
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5ce28a1cd0f48bd4ea46e417a6925277";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+    </script>
+
+
+</head>
+<body style="background-color:#fff">
+    <div class="login_main">
+        <div class="login_pic">
+            <a href="http://www.bingowang.com"><img src="~/Content/img/bingo.png" /></a>
+        </div>
+        <div class="login_pic"><img src="~/Content/img/login.png" /></div>
+       
+        @using (Ajax.BeginForm("UserLogin", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "afterLogin" }, new { id = "loginForm" }))
+        {
+            <div class="login_box">
+                <div class="text">
+                    用户名：<input type="text" name="LoginCode" id="username" class="login_input" placeholder="用户名/邮箱" />
+                </div>
+                <div class="text">
+                    密&nbsp;码：<input type="password" name="LoginPwd" id="LoginPwd" class="login_input" />
+                    @*<h6>用户可使用学号和初始密码（123456）登录系统，建议登录后修改初始密码。</h6>*@
+                </div>
+
+                <div class="text">
+                    验证码：
+                    <input type="text" name="vCode" id="Code" class="login_input" width="50" />
+                </div>
+                <div class="text">
+                    <img id="img" src="/Index/ShowCode/?id=1" alt="" />
+
+
+                    <a href="javascript:void(0)" style="text-decoration:none;color:#FA4332" onclick="changeCode();return false;">看不清，换一张</a>
+                </div>
+                <div class="text">
+                    <span id="mes"></span>
+                </div>
+                <div class="text">
+                    <input type="submit" value="" name="login" id="login" style="width:309px; height:36px;border:none;background: url(../Content/img/login_btn.jpg) left top no-repeat;cursor:pointer; ">
+                    <img class="wait" src="~/Content/img/wait1.jpg" style="height:36px;width:36px;margin:0 auto;position:relative;top:0px;left:0px;display:none" />
+                </div>
+                <div class="text">
+                    还没有账号，去<a href="/Index/register" style="text-decoration:none;color:#FA4332">注册</a>
+                </div>
+            </div>
+        }
+        <div style="clear:both;"></div>
+    </div>
+</body>
+</html>

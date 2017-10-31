@@ -1,0 +1,65 @@
+﻿@{
+    Layout = "~/Views/Shared/Gly.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Updategly</title>
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script type="text/javascript">
+        function subForm() {
+            $("#UpdateGlyform").submit();
+        };
+        function AfterUpdategly(data) {
+            if (data == "ok") {
+                alert("更新成功");
+                 window.location.href = "/Gly/Allgly";
+            } else if (data == "no") {
+                alert("更新失败");
+            } else { alert("有问题"); }
+        }
+    </script>
+</head>
+<body>
+  
+    <div class="main">
+        @using (Ajax.BeginForm("Glyupdategly", "Gly", new AjaxOptions() { HttpMethod = "post", OnSuccess = "AfterUpdategly" }, new { id = "UpdateGlyform" }))
+        {
+            if (ViewData["OneGlyInfo"] != null)
+            {
+                foreach (Model.GlyInfo OneGlyInfo in (List<Model.GlyInfo>)ViewData["OneGlyInfo"])
+                {
+            <div class="need">
+                <div class="list_1">
+                    <h2>name：</h2>
+                    <input type="text" id="AdminName" name="AdminName" class="text1" value="@OneGlyInfo.AdminName" />
+                    <span class="tip" id="tip1"></span>
+                </div>
+                <div class="list_1">
+                    <h2>pwd：</h2>
+                    <input type="text" id="PassWord" name="PassWord" class="text3" value="@OneGlyInfo.PassWord" />
+                    <span class="tip" id="tip2"></span>
+                </div>
+                <div class="list_1">
+                    <h2>phone：</h2>
+                    <input type="text" id="Phone" name="Phone" class="text3" value="@OneGlyInfo.Phone" />
+                    <span class="tip" id="tip3"></span>
+                </div>
+                <div class="list_1">
+                    <input type="submit" class="submit" id="submit" />
+                </div>
+            </div>}
+            }
+        }
+    </div>
+</body>
+</html>

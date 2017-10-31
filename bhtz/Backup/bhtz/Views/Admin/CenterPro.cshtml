@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>个人中心</title>
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            $(".delete").click(function () {
+                deleteInfo($(this).attr("ids"), $(this));//删除信息
+
+            });
+        });
+        function deleteInfo(id, control) {
+            $.post("/Admin/DeleteProduct", { "id": id }, function (data) {
+                if (data == "ok") {
+                    $(control).parent().parent().parent().remove();
+                    alert("删除成功");
+                } else {
+                    alert("删除失败，请稍后再试。");
+                }
+
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="main_top">
+            <div class="t"><a class="Pro" href="/Admin/CenterPro">我发布过的商品</a><a class="Need" href="/Admin/CenterNeed">我发布过的需求</a></div>
+
+        </div>
+        <div class="main_buttom">
+            <div class="title">
+                <div class="title_1">商品</div>
+                <div class="title_2">价格</div>
+                <div class="title_2">数量</div>
+                <div class="title_2">商品状态</div>
+                <div class="title_3">商品操作</div>
+            </div>
+            @if (ViewData["CenterList"] != null)
+            {
+                foreach (Model.ProductInfo CenterList in (List<Model.ProductInfo>)ViewData["CenterList"])
+                {
+                    <div class="good_list">
+                        <div class="good_list_top">
+                            <p>@CenterList.ReleaseTime</p>
+                        </div>
+                        <div class="good_list_buttom">
+
+                            <div class="title_1">
+                                <div class="img"><a href="/List/Detail?proid=@CenterList.ProductID" target="_blank"><img src="@CenterList.ProductImageAdd" alt="" /></a></div>
+                                <div class="shuoming">
+                                    <a href="/List/Detail?proid=@CenterList.ProductID" target="_blank">@CenterList.ProductName</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="title_2">￥@CenterList.Price</div>
+                            <div class="title_2">@CenterList.ProductNum</div>
+
+                            @if (CenterList.State.Trim() == "0")
+                            {
+                                <div class="title_zt">
+                                    待审核
+                                </div>}
+                            else if (CenterList.State.Trim() == "1")
+                            {  <div class="title_zt">
+                                已发布
+                            </div>}
+                            else
+                            {  <div class="title_zt">
+                                   未通过审核
+                            </div>}
+
+                            <div class="title_3">
+                                <a class="ok" href="/List/Detail?proid=@CenterList.ProductID" target="_blank">查看</a><a class="ok" href="/Admin/Update?updateid=@CenterList.ProductID">编辑</a><a class="delete" id="delete" href="javascript:void(0)" ids="@CenterList.ProductID">删除</a>
+                            </div>
+
+                        </div>
+                    </div>}
+                    <p class="page">
+                        @MvcHtmlString.Create(Common.PageBar.GetPageBar(ViewData["id"].ToString(), (int)ViewData["pageIndex"], (int)ViewData["pageCount"]))
+                    </p>
+
+            }
+            else
+            { <div class="nolist">还未发布商品，现在去<a href="/Admin/dalei">发布</a></div>}
+        </div>
+    </div>
+</body>
+</html>

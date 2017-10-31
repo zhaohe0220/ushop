@@ -1,0 +1,519 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+@using BLL;
+<html>
+<head>
+<meta name="baidu_union_verify" content="752365e295a6f74e1092350a2a7bc1cd">
+<meta name="baidu-tc-verification" content="19f5c2d19f03d40517d2684b12352275" />
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-校内物品交易平台</title>
+    <!--all-->
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <!--菜单css-->
+    @*<link href="~/Content/css/nav.css" rel="stylesheet" />*@
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <script src="~/Scripts/jquery.tabso_yeso.js"></script>
+
+    <script type="text/javascript">
+        $(".fenlei").css("display", "block");
+        $(document).ready(function () {
+
+            $(window).scroll(function () {
+                var items = $("#content").find(".item");
+                var menu = $("#menu");
+                var top = $(document).scrollTop();
+                var currentId = ""; //滚动条现在所在位置的item id
+                items.each(function () {
+                    var m = $(this);
+                    //注意：m.offset().top代表每一个item的顶部位置
+                    if (top > m.offset().top - 300) {
+                        currentId = "#" + m.attr("id");
+                    } else {
+                        return false;
+                    }
+                });
+
+                var currentLink = menu.find(".current");
+                if (currentId && currentLink.attr("href") != currentId) {
+                    currentLink.removeClass("current");
+                    menu.find("[href=" + currentId + "]").addClass("current");
+                }
+            });
+        });
+
+    </script>
+    <script type="text/javascript">
+        //图片轮播特效js
+        $(function () {
+            var focusBanner = function () {
+                var $focusBanner = $("#focus-banner"),
+					$bannerList = $("#focus-banner-list li"),
+					$focusHandle = $(".focus-handle"),
+					$bannerImg = $(".focus-banner-img"),
+					$nextBnt = $("#next-img"),
+					$prevBnt = $("#prev-img"),
+					$focusBubble = $("#focus-bubble"),
+					bannerLength = $bannerList.length,
+					_index = 0,
+					_timer = "";
+
+                var _height = $(".focus-banner-img").find("img").height();
+                $focusBanner.height(_height);
+                $bannerImg.height(_height);
+
+                $(window).resize(function () {
+                    window.location.reload()
+                });
+
+                for (var i = 0; i < bannerLength; i++) {
+                    $bannerList.eq(i).css("zIndex", bannerLength - i);
+                    $focusBubble.append("<li></li>");
+                }
+                $focusBubble.find("li").eq(0).addClass("current");
+                var bubbleLength = $focusBubble.find("li").length;
+                $focusBubble.css({
+                    "width": bubbleLength * 22,
+                    "marginLeft": -bubbleLength * 11
+                });//初始化
+
+                $focusBubble.on("click", "li", function () {
+                    $(this).addClass("current").siblings().removeClass("current");
+                    _index = $(this).index();
+                    changeImg(_index);
+                });//点击轮换
+
+                $nextBnt.on("click", function () {
+                    _index++
+                    if (_index > bannerLength - 1) {
+                        _index = 0;
+                    }
+                    changeImg(_index);
+                });//下一张
+
+                $prevBnt.on("click", function () {
+                    _index--
+                    if (_index < 0) {
+                        _index = bannerLength - 1;
+                    }
+                    changeImg(_index);
+                });//上一张
+
+                function changeImg(_index) {
+                    $bannerList.eq(_index).fadeIn(250);
+                    $bannerList.eq(_index).siblings().fadeOut(200);
+                    $focusBubble.find("li").removeClass("current");
+                    $focusBubble.find("li").eq(_index).addClass("current");
+                    clearInterval(_timer);
+                    _timer = setInterval(function () { $nextBnt.click() }, 5000)
+                }//切换主函数
+                _timer = setInterval(function () { $nextBnt.click() }, 5000)
+            }();
+        })
+
+    </script>
+</head>
+<body>
+    <div class="main" style="height:480px;width:90%;margin:0 auto;width:1215px;">
+
+        @*<div id="menu">
+                <ul>
+                    <li><a href="#item1" class="current">书籍文具</a></li>
+                    <li><a href="#item2">服装鞋帽</a></li>
+                    <li><a href="#item3">手机数码</a></li>
+                    <li><a href="#item4">运动娱乐</a></li>
+                    <li><a href="#item5">手表首饰</a></li>
+                    <li><a href="#item6">生活用品</a></li>
+
+                </ul>
+            </div>*@
+        @*《《《《《《《《《《《《《新版图片轮播》》》》》》》》》》》》》》》*@
+        <div id="focus-banner">
+            <ul id="focus-banner-list">
+ <li>
+                    <a href="javascript:void(0)" class="focus-banner-img">
+                        <img src="~/Content/img/bingo3.png" />
+                    </a>
+                </li>
+  <li>
+                    <a href="javascript:void(0)" class="focus-banner-img">
+                        <img src="~/Content/img/bingo2.png" />
+                    </a>
+                </li>
+ <li>
+                    <a href="javascript:void(0)" class="focus-banner-img">
+                        <img src="~/Content/img/bingo5.jpg" />
+                    </a>
+                </li>
+ <li>
+                    <a href="javascript:void(0)" class="focus-banner-img">
+                        <img src="~/Content/img/bingo6.jpg" />
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="focus-banner-img">
+                        <img src="~/Content/img/bingo1.png"  />
+                    </a>
+                    @*<div class="focus-banner-text">
+                            <p>这是一句广告语</p>
+                        </div>*@
+                </li>
+              
+               
+                <li>
+                    <a href="javascript:void(0)" class="focus-banner-img">
+                        <img src="~/Content/img/bingo4.png" />
+                    </a>
+                </li>
+            </ul>
+            <a href="javascript:;" id="next-img" class="focus-handle"></a>
+            <a href="javascript:;" id="prev-img" class="focus-handle"></a>
+            <ul id="focus-bubble"></ul>
+        </div>
+        <div class="sale">
+        </div>
+        <div class="news">
+            <div class="demo">
+                @*////////公告切换/////////////////*@
+                <ul class="tabbtn" id="normaltab">
+
+                    <li class="current"><a href="/Notice/List">公告</a></li>
+
+                    <li><a>规则</a></li>
+                    <li><a>安全</a></li>
+
+                </ul><!--tabbtn end-->
+
+                <div class="tabcon" id="normalcon">
+
+                    <div class="sublist">
+                        <ul>
+                            
+                            @if (ViewData["Notice"] != null)
+                            {
+                                int i = 0;
+                                foreach (Model.NoticeInfo notice in (List<Model.NoticeInfo>)ViewData["Notice"])
+                                {
+                                    if (i == 7)
+                                    { break; }
+                                    i++;
+                                    <li><span>▪</span><a href="/Notice/Detail?nid=@notice.ID" target="_blank">@notice.Title</a></li>
+                                    
+                                }
+                            }
+                        </ul>
+
+                    </div><!--tabcon end-->
+
+                    <div class="sublist">
+
+                        <ul>
+
+                            <li><span>▪</span><a>请勿在网站发布不良信息</a></li>
+                            <li><span>▪</span><a>线上展示，线下交易</a></li>
+                            <li><span>▪</span><a>面对面付款，请仔细鉴定商品质量</a></li>
+                            <li><span>▪</span><a>商品经过网站管理员审核之后才能上架</a></li>
+                           
+                        </ul>
+
+                    </div><!--tabcon end-->
+
+                </div><!--tabcon end-->
+            </div>
+
+         
+                        <div class="navititle"><h1>热门站点</h1></div>
+                        <div class="navilist">
+                            <a target="_blank" href="https://www.tmall.com/" rel="nofollow"><div class="naviitem">天猫</div></a>
+                            <a target="_blank" href="http://www.taobao.com/" rel="nofollow"><div class="naviitem">淘宝网</div></a>
+                            <a target="_blank" href="https://ju.taobao.com/" rel="nofollow"><div class="naviitem">聚划算</div></a>
+                            <a target="_blank" href="http://www.jd.com/" rel="nofollow"><div class="naviitem">京东</div></a>
+                            <a target="_blank" href="http://www.fanli.com/" rel="nofollow"><div class="naviitem">返利网</div></a>
+                            <a target="_blank" href="http://www.bingowang.com/" rel="nofollow"><div class="naviitem">滨购网</div></a>
+                        </div>
+                </div>
+        
+            </div>
+    <div class="clearfix"></div>
+    @*《《《《《《《《《《《《《新版图片轮播》》》》》》》》》》》》》》》*@
+    <div class="content-all" style="width:100%;background-color:#F5F5F5;margin-top:30px;">
+        <div id="content">
+            <div id="item1" class="item">
+                <h2><a href="/List/Index?id=1">书籍文具</a></h2>
+                <div class="m_list">
+                    @if (ViewData["plist"] != null)
+                    {
+                        int i = 0;
+                        foreach (Model.ProductInfo productInfo in (List<Model.ProductInfo>)ViewData["plist"])
+                        {
+                            if (productInfo.Btype.Trim() == "1")
+                            {
+                                if (i == 10)
+                                { break; }
+                                i++;
+
+                                <div class="img_box">
+                                    <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank"><img src="@productInfo.ProductImageAdd" alt="" /></a>
+
+                                    <div class="title">
+                                        <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank">@productInfo.ProductName</a>
+
+                                    </div>
+                                    <div class="price">
+                                        <h1>¥@productInfo.Price</h1>
+
+                                    </div>
+
+                                </div>
+
+                            }
+                        }
+                    }
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div id="item2" class="item">
+                <h2><a href="/List/Index?id=2">服装鞋帽</a></h2>
+                <div class="m_list">
+                    @if (ViewData["plist"] != null)
+                    {
+                        int i = 0;
+                        foreach (Model.ProductInfo productInfo in (List<Model.ProductInfo>)ViewData["plist"])
+                        {
+                            if (productInfo.Btype.Trim() == "2")
+                            {
+                                if (i == 10)
+                                { break; }
+                                i++;
+
+                                <div class="img_box">
+                                    <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank"><img src="@productInfo.ProductImageAdd" alt="" /></a>
+
+                                    <div class="title">
+                                        <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank">@productInfo.ProductName</a>
+                                    </div>
+                                    <div class="price">
+                                        <h1>¥@productInfo.Price</h1>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    }  <div class="clear"></div>
+                </div>
+            </div>
+            <div id="item3" class="item">
+                <h2><a href="/List/Index?id=3">手机数码</a></h2>
+                <div class="m_list">
+                    @if (ViewData["plist"] != null)
+                    {
+                        int i = 0;
+                        foreach (Model.ProductInfo productInfo in (List<Model.ProductInfo>)ViewData["plist"])
+                        {
+                            if (productInfo.Btype.Trim() == "3")
+                            {
+                                if (i == 10)
+                                { break; }
+                                i++;
+
+                                <div class="img_box">
+                                    <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank"><img src="@productInfo.ProductImageAdd" alt="" /></a>
+
+                                    <div class="title">
+                                        <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank">@productInfo.ProductName</a>
+                                    </div>
+                                    <div class="price">
+                                        <h1>¥@productInfo.Price</h1>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    } <div class="clear"></div>
+                </div>
+            </div>
+            <div id="item4" class="item">
+                <h2><a href="/List/Index?id=4">运动娱乐</a></h2>
+                <div class="m_list">
+                    @if (ViewData["plist"] != null)
+                    {
+                        int i = 0;
+                        foreach (Model.ProductInfo productInfo in (List<Model.ProductInfo>)ViewData["plist"])
+                        {
+                            if (productInfo.Btype.Trim() == "4")
+                            {
+                                if (i == 10)
+                                { break; }
+                                i++;
+
+                                <div class="img_box">
+                                    <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank"><img src="@productInfo.ProductImageAdd" alt="" /></a>
+
+                                    <div class="title">
+                                        <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank">@productInfo.ProductName</a>
+                                    </div>
+                                    <div class="price">
+                                        <h1>¥@productInfo.Price</h1>
+                                    </div>
+                                </div>
+
+                            }
+
+                        }
+                    }
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div id="item5" class="item">
+                <h2><a href="/List/Index?id=5">手表首饰</a></h2>
+                <div class="m_list">
+                    @if (ViewData["plist"] != null)
+                    {
+                        int i = 0;
+                        foreach (Model.ProductInfo productInfo in (List<Model.ProductInfo>)ViewData["plist"])
+                        {
+                            if (productInfo.Btype.Trim() == "5")
+                            {
+                                if (i == 10)
+                                { break; }
+                                i++;
+
+                                <div class="img_box">
+                                    <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank"><img src="@productInfo.ProductImageAdd" alt="" /></a>
+
+                                    <div class="title">
+                                        <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank">@productInfo.ProductName</a>
+                                    </div>
+                                    <div class="price">
+                                        <h1>¥@productInfo.Price</h1>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    } <div class="clear"></div>
+                </div>
+            </div>
+            <div id="item6" class="item">
+                <h2><a href="/List/Index?id=6">食妆生活</a></h2>
+                <div class="m_list">
+                    @if (ViewData["plist"] != null)
+                    {
+                        int i = 0;
+                        foreach (Model.ProductInfo productInfo in (List<Model.ProductInfo>)ViewData["plist"])
+                        {
+                            if (productInfo.Btype.Trim() == "6")
+                            {
+                                if (i == 10)
+                                { break; }
+                                i++;
+
+                                <div class="img_box">
+                                    <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank"><img src="@productInfo.ProductImageAdd" alt="" /></a>
+
+                                    <div class="title">
+                                        <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank">@productInfo.ProductName</a>
+                                    </div>
+                                    <div class="price">
+                                        <h1>¥@productInfo.Price</h1>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    }<div class="clear"></div>
+                </div>
+            </div>
+            @*<div id="item7" class="item">
+                    <h2><a href="/List/Index?id=7">其他</a></h2>
+                    <div class="m_list">
+                        @if (ViewData["plist"] != null)
+                        {
+                            int i = 0;
+                            foreach (Model.ProductInfo productInfo in (List<Model.ProductInfo>)ViewData["plist"])
+                            {
+                                if (productInfo.Btype.Trim() == "7")
+                                {
+                                    if (i == 10)
+                                    { break; }
+                                    i++;
+
+                                    <div class="img_box">
+                                        <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank"><img src="@productInfo.ProductImageAdd" alt="" /></a>
+                                        <div class="price">
+                                            <h1>￥@productInfo.Price</h1>
+                                        </div>
+                                        <div class="title">
+                                            <a href="/List/Detail?proid=@productInfo.ProductID" target="_blank">@productInfo.ProductName</a>
+                                        </div>
+                                    </div>
+
+                                }
+                            }
+                        }  <div class="clear"></div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    <script type="text/javascript">
+        $('.all-sort-list > .item').hover(function () {
+            var eq = $('.all-sort-list > .item').index(this),				//获取当前滑过是第几个元素
+				h = $('.all-sort-list').offset().top,						//获取当前下拉菜单距离窗口多少像素
+				s = $(window).scrollTop(),									//获取游览器滚动了多少高度
+				i = $(this).offset().top,									//当前元素滑过距离窗口多少像素
+				item = $(this).children('.item-list').height(),				//下拉菜单子类内容容器的高度
+				sort = $('.all-sort-list').height();						//父类分类列表容器的高度
+
+            if (item < sort) {												//如果子类的高度小于父类的高度
+                if (eq == 0) {
+                    $(this).children('.item-list').css('top', (i - h));
+                } else {
+                    $(this).children('.item-list').css('top', (i - h) + 1);
+                }
+            } else {
+                if (s > h) {												//判断子类的显示位置，如果滚动的高度大于所有分类列表容器的高度
+                    if (i - s > 0) {											//则 继续判断当前滑过容器的位置 是否有一半超出窗口一半在窗口内显示的Bug,
+                        $(this).children('.item-list').css('top', (s - h) + 2);
+                    } else {
+                        $(this).children('.item-list').css('top', (s - h) - (-(i - s)) + 2);
+                    }
+                } else {
+                    $(this).children('.item-list').css('top', 3);
+                }
+            }
+
+            $(this).addClass('hover');
+            $(this).children('.item-list').css('display', 'block');
+        }, function () {
+            $(this).removeClass('hover');
+            $(this).children('.item-list').css('display', 'none');
+        });
+
+        $('.item > .item-list > .close').click(function () {
+            $(this).parent().parent().removeClass('hover');
+            $(this).parent().hide();
+        });
+    </script>
+    <script type="text/javascript">
+
+
+
+        $(document).ready(function ($) {
+            $("#normaltab").tabso({
+
+                cntSelect: "#normalcon",
+
+                tabEvent: "mouseover",
+
+                tabStyle: "normal"
+
+            });
+
+
+        });
+    </script>
+</body>
+</html>

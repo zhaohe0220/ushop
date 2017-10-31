@@ -1,0 +1,83 @@
+﻿@{
+    Layout = "~/Views/Shared/Gly.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Publishgg</title>
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+
+    <!--编辑器-->
+    <script src="~/Content/kindeditor/lang/zh_CN.js"></script>
+    <script src="~/Content/kindeditor/kindeditor.js"></script>
+    <script src="~/Content/kindeditor/plugins/code/prettify.js"></script>
+    <script type="text/javascript">
+        KindEditor.ready(function (K) {
+            var editor1 = K.create('#content1', {
+                cssPath: '../plugins/code/prettify.css',
+                uploadJson: '../Content/kindeditor/asp.net/upload_json.ashx',
+                fileManagerJson: '../Content/kindeditor/asp.net/file_manager_json.ashx',
+                allowFileManager: true,
+                filterMode: true,
+                resizeType: 0,
+                items : [
+						'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'image', 'link', 'wordpaste', 'cut', 'paste'],
+                afterCreate: function () {
+                    var self = this;
+                    K.ctrl(document, 13, function () {
+                        self.sync();
+                        K('form[name=example]')[0].submit();
+                    });
+                    K.ctrl(self.edit.doc, 13, function () {
+                        self.sync();
+                        K('form[name=example]')[0].submit();
+                    });
+                }
+            });
+        })
+        function subForm() {
+            $("#ggform").submit();
+        };
+        function AfterAddgg(data) {
+            if (data == "ok") {
+                alert("发布成功");
+                window.location.href = "/Gly/GlyPro";
+            } else if (data == "no") {
+                alert("发布失败,请重新发布！");
+            } else { alert("有问题"); }
+        }
+    </script>
+</head>
+<body>
+ 
+    <div class="main">
+@using (Ajax.BeginForm("Addgg", "Gly", new AjaxOptions() { HttpMethod = "post", OnSuccess = "AfterAddgg" }, new { id = "ggform" }))
+            {
+        <div class="add">
+            <div class="list_1">
+                <h2>公告标题：</h2>
+                <input type="text" id="Title" name="Title" class="text1" />
+                <span class="tip" id="tip1"></span>
+            </div>
+            <div class="list_1">
+                <h2>详细说明：</h2>
+                <textarea id="content1" name="NContent" style="width:300px;height:300px;"></textarea>
+                <a class="tipintro" id="tip8"></a>
+            </div>
+            <div class="list_1">
+                <input type="submit" class="submit" id="submit" />
+            </div>
+        </div>}
+        </div>
+</body>
+</html>

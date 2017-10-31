@@ -1,0 +1,256 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>addmes</title>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <!--编辑器-->
+    <script src="~/Content/kindeditor/lang/zh_CN.js"></script>
+    <script src="~/Content/kindeditor/kindeditor.js"></script>
+    <script src="~/Content/kindeditor/plugins/code/prettify.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <style type="text/css">
+        label.error {
+            padding-left: 16px;
+            padding-bottom: 2px;
+            color: red;
+        }
+    </style>
+    <script>
+        KindEditor.ready(function (K) {
+            var editor1 = K.create('#content1', {
+                cssPath: '../plugins/code/prettify.css',
+                uploadJson: '../Content/kindeditor/asp.net/upload_json.ashx',
+                fileManagerJson: '../Content/kindeditor/asp.net/file_manager_json.ashx',
+                allowFileManager: true,
+                filterMode: true,
+                resizeType: 0,
+                items: ['fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'image', 'link','multiimage','wordpaste','cut','paste'],
+                afterCreate: function () {
+                    var self = this;
+                    K.ctrl(document, 13, function () {
+                        self.sync();
+                        K('form[name=example]')[0].submit();
+                    });
+                    K.ctrl(self.edit.doc, 13, function () {
+                        self.sync();
+                        K('form[name=example]')[0].submit();
+                    });
+                }
+            });
+            prettyPrint();
+        });
+
+
+
+        //验证
+        $().ready(function () {
+            $("#form").validate({
+                rules: {
+                    ProductName: {
+                        required: true,
+                        maxlength: 25
+                    },
+                    Price: {
+                        required: true,
+                        number: true,
+                        min:1
+                    },
+                    ProductNum: {
+                        required: true,
+                        number: true,
+                        min:1
+                    },
+                    imagePath: {
+                        required: true
+                    },
+                    editor1: {
+                        required: true
+                    },
+                    QQ: {
+                       // required: true,
+                        digits: true
+                    },
+                    Phone: {
+                        required: true,
+                        digits: true
+                    },
+                    Address: {
+                        required: true,
+                        maxlength:50
+                    },
+                },
+                messages: {
+                    ProductName: {
+                        required: "◀请填写标题",
+                        maxlength: "◀标题不得超过25字"
+                    },
+                    Price: {
+                        required: "◀请输入物品价格",
+                        number: "◀请输入合法的数字",
+                        min: jQuery.validator.format("◀请输入一个最小为{0}的值")
+                    },
+                    ProductNum: {
+                        required: "◀请填写物品数量",
+                        number: "◀请输入合法的数字",
+                        min: jQuery.validator.format("◀请输入一个最小为{0}的值")
+                    },
+                    imagePath: {
+                        required: "◀请选择图片并预览"
+                    },
+                    editor1: {
+                        required: "◀请填写详细信息"
+                    },
+                    Phone: {
+                        required: "◀请填写联系方式",
+                        digits: "◀请输入正确的联系方式",
+                    },
+                    QQ: {
+                        //required: "◀请填写联系方式",
+                        digits: "◀请输入正确的联系方式",
+                    },
+                    Address: {
+                        required: "◀请填写地址",
+                        maxlength: "◀标题不得超过50字"
+                    },
+                }
+            });
+        });
+
+
+        //
+        $(function () {
+            fileUpLoad();
+        });
+        function fileUpLoad() {
+            $("#fileBtn").click(function () {
+                if ($("#fileUp").val() == "") {
+                    alert("请选择图片！"); return;
+                } else {
+                    $("#form").ajaxSubmit({
+                        type: "post",
+                        url: "/Admin/FileUpLoad",
+                        success: function (data) {
+                            var da = data.split(":");
+                            if (da[0] == "ok") {
+                                $("#imagePath").val(da[1]);
+                                //$("#image").html("<img src='" + da[1] + "'width='50px' height='50px'/>");
+                                document.getElementById("image").style.display = "block";
+                                document.getElementById("image").src = da[1];
+                                //document.getElementById("tip_img").style.display = "none";
+                              $("#tip7").text(""); 
+                            } else if (da[0] == "no") {
+                                alert(da[1]);
+                            } else { alert("失败"); }
+                        }
+                    });
+                }
+            });
+        }
+       
+        $(function () {
+            $('#submit').click(function () {
+                var imagepath = $("#imagePath").val();
+                if (imagepath == "") {
+                    $("#tip7").text("◀请选择图片并点击预览");
+                } else { $("#tip7").text(""); }
+            });})
+
+                function subForm() {
+                    $("#form").submit();
+                };
+           
+        function AfterAdd(data) {
+            if (data == "ok") {
+                alert("发布成功");
+               // location.href = "/Index/Index";
+                window.location.href = "/Admin/CenterPro";
+            } else if (data == "no") {
+                alert("发布失败,请重新发布！");
+            } else { alert("有问题"); }
+        }
+
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="title">
+            <h1>免费发布商品</h1>
+        </div>
+            <div class="biaoti">
+                <h1>请填写详细信息</h1>
+            </div>
+            @using (Ajax.BeginForm("AddMessage", "Admin", new AjaxOptions() { HttpMethod = "post", OnSuccess = "AfterAdd" }, new { id = "form" }))
+            {
+                <div class="add">
+                    <div class="list_1">
+                        <h2>商品名称：</h2>
+                        <input type="text" id="ProductName" name="ProductName" class="text1" />
+                        <span class="tip" id="tip1"></span>
+                    </div>
+                    <div class="list_1">
+                        <h2>商品价格：</h2>
+                        <input type="number" id="Price" name="Price" min="1" class="text2" />
+                        <span class="tip" id="tip2"></span>
+                    </div>
+                    <div class="list_1">
+                        <h2>商品数量：</h2>
+                        <input type="number" id="ProductNum" name="ProductNum" min="1" class="text2" />
+                        <span class="tip" id="tip3"></span>
+                    </div>
+
+                    <div class="list_1">
+                        <h2>上传图片：</h2>
+                        <a href="javascript:;" class="a-upload">
+                            <input type="file" name="fileUp" id="fileUp">选择图片
+                        </a>
+                        <input type="button" class="fileBtn" value="预览" id="fileBtn" />
+                        <input type="hidden" id="imagePath" name="ProductImageAdd"/>
+                      
+                        <span class="tip" id="tip7"></span>
+                    </div>
+                    <div class="list_1">
+                        <span class="tip_img" id="tip_img">请选择一张图片作为商品主图,支持.jpg、.jpeg、.png、.bmp格式</span>
+                    </div>
+                    <div class="list_1">
+                        <img id="image" class="image" src="" alt="" style="display:none;" />
+                    </div>
+                        <div class="list_1">
+                            <h2>详细说明：</h2>
+                            <textarea id="content1" name="ProductIntroduce" style="width:300px;height:300px;" placeholder="请填写详细信息"></textarea>
+                            <a class="tipintro" id="tip8"></a>
+                        </div>
+                        <div class="list_1">
+                            <h2>联系方式：</h2>
+                            <input type="text" id="Phone" name="Phone" class="text3" />
+                            <span class="tip" id="tip4"></span>
+                        </div>
+                        <div class="list_1">
+                            <h2>Q Q 联系：</h2>
+                            <input type="text" id="QQ" name="QQ" class="text3" />
+                            <span class="tip" id="tip5"></span>
+                        </div>
+                        <div class="list_1">
+                            <h2>货源地址：</h2>
+                            <textarea id="Address" class="address" name="Address"></textarea>
+                            <span class="tip" id="tip6"></span>
+                        </div>
+                        <div class="list_1">
+                            <input type="submit" class="submit" id="submit" value="提交" />
+                        </div>
+                    </div>}
+        </div>
+   
+</body>
+</html>

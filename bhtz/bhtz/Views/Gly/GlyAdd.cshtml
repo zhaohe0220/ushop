@@ -1,0 +1,61 @@
+﻿@{
+    Layout = "~/Views/Shared/Gly.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>添加管理员</title>
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script type="text/javascript">
+        function subForm() {
+            $("#Glyform").submit();
+        };
+        function AfterAddgly(data) {
+            if (data == "ok") {
+                alert("添加成功");
+                window.location.href = "/Gly/Allgly";
+            } else if (data == "no") {
+                alert("添加失败");
+            } else { alert("有问题"); }
+        }
+    </script>
+</head>
+<body>
+  
+    <div class="main" style="width:80%;float:left;border:1px solid #fff ">
+        <div>添加管理员</div>
+        <br />
+        @using (Ajax.BeginForm("Addgly", "Gly", new AjaxOptions() { HttpMethod = "post", OnSuccess = "AfterAddgly" }, new { id = "Glyform" }))
+        {
+            <div class="need">
+                <div class="list_1">
+                    <h2>姓名：</h2>
+                    <input type="text" id="AdminName" name="AdminName" class="text3" />
+                
+                </div>
+                <div class="list_1">
+                   <h2>密码：</h2>
+                    <input type="text" id="PassWord" name="PassWord" class="text3" />
+                 
+                </div>
+                <div class="list_1">
+                    <h2>电话：</h2>
+                    <input type="text" id="Phone" name="Phone" class="text3" />
+               
+                </div>
+                <div class="list_1">
+                    <input type="submit" class="submit" id="submit" />
+                </div>
+            </div>}
+    </div>
+</body>
+</html>

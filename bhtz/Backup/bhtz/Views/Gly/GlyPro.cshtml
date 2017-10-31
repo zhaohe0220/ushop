@@ -1,0 +1,107 @@
+﻿@{
+    Layout = "~/Views/Shared/Gly.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GlyPro</title>
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".delete").click(function () {
+                noInfo($(this).attr("ids"), $(this),2);//拒绝发布信息
+            });
+            $(".update").click(function () {
+                yesInfo($(this).attr("ids"), $(this),1);//同意信息
+            });
+        });
+        function noInfo(id, control, temp) {
+            $.post("/Gly/shenheProduct", { "id": id, "temp": 2 }, function (data) {
+                if (data == "ok") {
+                    $(control).parent().parent().parent().remove();
+                    alert("拒绝成功");
+                } else {
+                    alert("操作失败请重试！");
+                }
+            });};
+            function yesInfo(id, control, temp) {
+                $.post("/Gly/shenheProduct", { "id": id, "temp": 1 }, function (data) {
+                    if (data == "ok") {
+                        $(control).parent().parent().parent().remove();
+                        alert("审核通过");
+                    } else {
+                        alert("操作失败请重试！");
+                    }
+                });
+            };
+        </script>
+</head>
+<body>
+  
+    <div class="main">
+        <div class="main_top">
+            <div class="t"><a class="Pro">审核商品</a></div>
+
+        </div>
+        <div class="main_buttom">
+            <div class="title">
+                <div class="title_1">商品</div>
+                <div class="title_2">价格</div>
+                <div class="title_2">数量</div>
+                <div class="title_2">商品状态</div>
+                <div class="title_3">商品操作</div>
+            </div>
+            @if (ViewData["GlyList"] != null)
+            {
+                foreach (Model.ProductInfo GlyList in (List<Model.ProductInfo>)ViewData["GlyList"])
+                {
+                    <div class="good_list">
+                        <div class="good_list_top">
+                            <p>@GlyList.ReleaseTime</p>
+                        </div>
+                        <div class="good_list_buttom">
+
+                            <div class="title_1">
+                                <div class="img"><a href="/List/Detail?proid=@GlyList.ProductID"><img src="@GlyList.ProductImageAdd" alt="" /></a></div>
+                                <div class="shuoming">
+                                    <a href="/List/Detail?proid=@GlyList.ProductID">@GlyList.ProductName</a>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="title_2">￥@GlyList.Price</div>
+                            <div class="title_2">@GlyList.ProductNum</div>
+
+                            @if (GlyList.State.Trim() == "0")
+                            {
+                                <div class="title_zt">
+                                    待审核
+                                </div>}
+                            else if (GlyList.State.Trim() == "1")
+                            {  <div class="title_zt">
+                                已发布
+                            </div>}
+                            else
+                            {  <div class="title_zt">
+                                发布失败
+                            </div>}
+
+                            <div class="title_3">
+                                <a class="ok" href="/List/Detail?proid=@GlyList.ProductID">查看</a><a class="update" id="update" href="javascript:void(0)" ids="@GlyList.ProductID">通过</a><a class="delete" id="delete" href="javascript:void(0)" ids="@GlyList.ProductID">拒绝</a>
+                            </div>
+
+                        </div>
+                    </div>}
+                    <p class="page">
+                        @MvcHtmlString.Create(Common.NeedPage.NeedPageBar((int)ViewData["pageIndex"], (int)ViewData["pageCount"]))
+                    </p>
+
+            }
+        </div>
+    </div>
+</body>
+</html>

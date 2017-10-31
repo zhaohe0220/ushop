@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>反馈</title>
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <link href="~/Content/css/Static.css" rel="stylesheet" />
+   <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#jy').click(function () {
+                var jiannyi = document.getElementById("jiannyi").value;
+                if (jiannyi == "") {
+                    alert("您还没有填写任何信息。");
+                }
+            });});
+            function subForm() {
+                $("#Adviseform").submit();
+            };
+            function AfterAddAdvise(data) {
+                if (data == "ok") {
+                    alert("提交成功，感谢您的意见。");
+                    window.location.href = "/Index/Index";
+                } else if(data == "no") {
+                    alert("您还没有填写任何意见。");
+                } else { alert("网络有问题"); }
+            }
+        </script>
+</head>
+<body>
+    <div class="login_banner">
+        <div class="banner_center">
+            <div class="loginbar">
+                <a href="/Index/Index"><img src="~/Content/img/logo.jpg" /></a>
+            </div>
+        </div>
+    </div>
+  
+   
+    <div class="mz">
+        <div class="title"><h3>用户反馈</h3></div>
+        <div class="content">
+            <p> 尊敬的用户：</p>
+               <p> 您好！为了给您提供更好的服务，我们希望收集您使用滨购网的看法或建议。对您的配合和支持表示衷心感谢！</p>
+            <p>您可以从网站的打开速度，色彩搭配，布局合理性，操作方便性，内容清晰，网站是否能满足你的需要等方面对网站进行评价和建议。</p>
+@using (Ajax.BeginForm("AddAdvise", "Static", new AjaxOptions() { HttpMethod = "post", OnSuccess = "AfterAddAdvise" }, new { id = "Adviseform" }))
+        {
+            <div class="con">
+                <textarea id="jiannyi" class="jianyi" name="advise"></textarea>
+            </div>
+            <p>如果您对滨购网的使用体验有任何想法，也欢迎加入我们的官方QQ群（241188485）成为群内一员！为我们的发展提供更多的意见和建议。</p>
+
+            <input type="submit" class="jy" id="jy" />}
+          
+        </div>
+    </div>
+      
+   
+</body>
+</html>

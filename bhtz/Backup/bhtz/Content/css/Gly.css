@@ -1,0 +1,25 @@
+﻿input,textarea{outline:none;}
+.all{width:90%;margin:0 auto;}
+.north{width:100%;height:50px;}
+.left{width:20%;height:600px;border:1px solid red;float:left}
+.center{width:79%;height:600px;float:right;border:1px solid blue;}
+.clear{clear:both;}
+
+
+.subNavBox{border:solid 1px #e5e3da;margin:5px 3px;}
+.subNav{border-bottom:solid 1px #e5e3da;cursor:pointer;font-weight:bold;font-size:14px;color:#999;line-height:28px;padding-left:10px;}
+.subNav:hover{color:#277fc2;}
+.currentDd{color:#277fc2}
+.navContent{display: none;border-bottom:solid 1px #e5e3da;}
+.navContent li{list-style:none;}
+.navContent li a{display:block;width:200px;height:28px;text-align:center;font-size:14px;line-height:28px;color:#666}
+.navContent li a:hover{color:#000;}
+.panel{background-color:#E0ECFF;}
+ .panel .panel-title {
+        font-size: 12px;
+        font-weight: bold;
+        color: #0E2D5F;
+        height: 16px;
+        line-height: 16px;
+        padding:5px;
+    }

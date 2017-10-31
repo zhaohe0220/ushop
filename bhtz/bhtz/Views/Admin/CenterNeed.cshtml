@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-需求中心</title>
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".deleteneed").click(function () {
+                 deleteneed($(this).attr("ids"), $(this));//删除信息
+             
+            });
+        });
+        function deleteneed(id, control) {
+            $.post("/Admin/DeleteNeed", { "id": id }, function (data) {
+                if (data == "ok") {
+                    $(control).parent().parent().remove();
+                    alert("删除成功");
+                  //  window.location.href = "/Admin/CenterNeed";
+                } else {
+                    alert("删除失败,请稍后再试。");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="main_top">
+            <div class="t"><a class="Pro" style="float:left;" href="/Admin/CenterPro">我发布过的商品</a><a class="Need" style="float:right;" href="/Admin/CenterNeed">我发布过的需求</a></div>
+        </div>
+        <div class="main_buttom">
+            <div class="notice_head">
+                <div class="a"><a>标题</a></div><div class="d"><h5>商品状态</h5></div><div class="b"><h5>时间</h5></div><div class="c"><h5>需求操作</h5></div>
+            </div>
+            @if (ViewData["CenterNeed"] != null)
+            {
+                foreach (Model.NeedInfo CenterNeed in (List<Model.NeedInfo>)ViewData["CenterNeed"])
+                {
+                    <div class="notice">
+                        <div class="needtitle">
+                            <a href="/Need/NeedDetail?nid=@CenterNeed.Id" target="_blank">@CenterNeed.Title</a>
+                        </div>
+            @if (CenterNeed.State == "0") { 
+                        <div class="needzt">
+                          待审核
+                        </div>}
+            else if (CenterNeed.State == "1") {  <div class="needzt">
+                         已发布
+                        </div>} else{  <div class="needzt">
+                        未通过审核
+                        </div>}
+
+                        <div class="needtime">
+                            <h5>@CenterNeed.ReleaseTime</h5>
+                        </div>
+                       
+            <div class="cz">
+                <a href="/Need/NeedDetail?nid=@CenterNeed.Id" target="_blank">查看</a>
+                <a href="/Admin/UpdateNeed?nid=@CenterNeed.Id">编辑</a>
+                <a class="deleteneed" id="deleteneed" href="javascript:void(0)" ids="@CenterNeed.Id">删除</a>
+                        </div>
+                    </div>}
+                           <p class="page">
+         @MvcHtmlString.Create(Common.PageBar.GetPageBar(ViewData["id"].ToString(), (int)ViewData["pageIndex"], (int)ViewData["pageCount"]))
+        </p>
+                  
+            }
+            else
+            { <div class="nolist">未发布任何需求，现在去<a href="/Admin/NeedPublish">发布</a></div>}
+        </div>
+     </div>
+</body>
+</html>

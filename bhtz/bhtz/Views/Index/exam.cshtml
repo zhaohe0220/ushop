@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+}
+@using Model;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>exam</title>
+    <script src="~/Scripts/jquery-1.8.3.min.js"></script>
+    <style type="text/css">
+           
+    </style>
+   <script type="text/javascript">
+       function show() {
+           document.getElementById("light").style.display = "block";
+       }
+       function hidden() {
+           document.getElementById("light").style.display = "none";
+       }
+   </script>
+</head>
+
+<body>
+    <p>示例弹出层：<a class="show" href="javascript:void(0)" onclick="show()">请点这里</a></p>
+    <div id="light" style="height:200px;width:200px;background-color:#808080;"></div><a class="hidden" href="javascript:void(0)" onclick="hidden()">哈哈</a>
+    @*<div id="fade" class="black_overlay"></div>*@ 
+</body>
+
+</html>  

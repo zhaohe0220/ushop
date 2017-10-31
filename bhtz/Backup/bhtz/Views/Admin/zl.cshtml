@@ -1,0 +1,114 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>zl</title>
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <style type="text/css">
+        label.error {
+            padding-left: 16px;
+            padding-bottom: 2px;
+            color: red;
+        }
+    </style>
+    <script type="text/javascript">
+        //验证
+        $().ready(function () {
+            $("#mesform").validate({
+                rules: {
+                  
+                    Phone: {
+                        digits: true
+                    },
+                    QQ: {
+                        digits: true
+                    },
+                    Email: {
+                        email: true
+                    },
+                   
+                },
+                messages: {
+                    Phone: {
+                        digits: "◀请输入正确的联系方式"
+                    },
+                    QQ: {
+                        digits: "◀请输入正确的联系方式"
+                    },
+                    Email: {
+                        email: "◀请输入正确格式的电子邮件"
+                    },
+                }
+            });
+        });
+
+
+        //
+        function subForm() {
+            $("#mesform").submit();
+        }
+        function Afterupdatemes(data) {
+            if (data == "ok") {
+                alert("信息编辑成功");
+            } else if (data == "no") {
+                alert("信息编辑失败，请重试");
+            } else { alert("有问题"); }
+        }
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="main_top">
+            <div class="t"><a class="Pro" href="/Admin/zl">编辑资料</a><a class="Need" href="/Admin/Centerpwd">修改密码</a></div>
+        </div>
+        @using (Ajax.BeginForm("updatemes", "Admin", new AjaxOptions() { HttpMethod = "post", OnSuccess = "Afterupdatemes" }, new { id = "mesform" }))
+        {
+            foreach (Model.UserInfo UserInfo in (List<Model.UserInfo>)ViewData["userlist"])
+        {
+            <div class="need">
+                <div class="list_1">
+                    <h2>用&nbsp;户&nbsp;名：</h2>
+                    <h6>@UserInfo.Name</h6>
+                    <span class="tip" id="tip1"></span>
+                </div>
+                <div class="list_1">
+                    <h2>班&nbsp;&nbsp;&nbsp;级 ：</h2>
+                    <input type="text" id="Class" name="Class" value="@UserInfo.Class" class="text3" />
+                    <span class=" tip" id="tip2"></span>
+                </div>
+                <div class="list_1">
+                    <h2>电话联系：</h2>
+                    <input type="text" id="Phone" name="Phone" value="@UserInfo.Phone" class="text3" />
+                    <span class="tip" id="tip3"></span>
+                </div>
+                <div class="list_1">
+                    <h2>Q Q 联系：</h2>
+                    <input type="text" id="QQ" name="QQ" value="@UserInfo.QQ" class="text3" />
+                    <span class="tip" id="tip3"></span>
+                </div>
+                <div class="list_1">
+                    <h2>电子邮件：</h2>
+                    <input type="email" id="Email" name="Email" value="@UserInfo.Email" class="text3" />
+                    <span class="tip" id="tip3"></span>
+                </div>
+                <div class="list_1">
+                    <input type="submit" class="submit" id="submit" value="提交" />
+                </div>
+            </div>}}
+
+    </div>
+
+
+</body>
+</html>

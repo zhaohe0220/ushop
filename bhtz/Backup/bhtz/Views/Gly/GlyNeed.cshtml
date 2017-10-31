@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "~/Views/Shared/Gly.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GlyNeed</title>
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".shdelete").click(function () {
+                noInfo($(this).attr("ids"), $(this), 2);//拒绝发布信息
+            });
+            $(".shupdate").click(function () {
+                yesInfo($(this).attr("ids"), $(this), 1);//同意信息
+            });
+        });
+        function noInfo(id, control, temp) {
+            $.post("/Gly/shenheNeed", { "id": id, "temp": 2 }, function (data) {
+                if (data == "ok") {
+                    $(control).parent().parent().remove();
+                    alert("拒绝成功");
+                } else {
+                    alert("操作失败请重试！");
+                }
+            });
+        };
+        function yesInfo(id, control, temp) {
+            $.post("/Gly/shenheNeed", { "id": id, "temp": 1 }, function (data) {
+                if (data == "ok") {
+                    $(control).parent().parent().remove();
+                    alert("审核通过");
+                    // window.location.href = "/Admin/CenterPro";
+                } else {
+                    alert("操作失败请重试！");
+                }
+            });
+        };
+    </script>
+
+</head>
+<body>
+ 
+    <div class="main">
+        <div class="main_top">
+            <div class="t"><a class="Pro" href="/Admin/CenterNeed">需求审核</a></div>
+        </div>
+        <div class="main_buttom">
+            <div class="notice_head">
+                <div class="a"><a>标题</a></div><div class="d"><h5>商品状态</h5></div><div class="b"><h5>时间</h5></div><div class="c"><h5>需求操作</h5></div>
+            </div>
+            @if (ViewData["GlyNeed"] != null)
+            {
+                foreach (Model.NeedInfo GlyNeed in (List<Model.NeedInfo>)ViewData["GlyNeed"])
+                {
+                    <div class="notice">
+                        <div class="needtitle">
+                            <a href="/Need/NeedDetail?nid=@GlyNeed.Id">@GlyNeed.Title</a>
+                        </div>
+                        @if (GlyNeed.State == "0")
+                        {
+                            <div class="needzt">
+                                待审核
+                            </div>}
+                        else if (GlyNeed.State == "1")
+                        {  <div class="needzt">
+                            已发布
+                        </div>}
+                        else
+                        {  <div class="needzt">
+                            发布失败
+                        </div>}
+
+                        <div class="needtime">
+                            <h5>@GlyNeed.ReleaseTime</h5>
+                        </div>
+
+                        <div class="cz">
+                            <a href="/Need/NeedDetail?nid=@GlyNeed.Id">查看</a>
+                            <a class="shupdate" id="update" href="javascript:void(0)" ids="@GlyNeed.Id">通过</a><a class="shdelete" id="delete" href="javascript:void(0)" ids="@GlyNeed.Id">拒绝</a>
+                        </div>
+                    </div>}
+                    <p class="page">
+        @MvcHtmlString.Create(Common.NeedPage.NeedPageBar((int)ViewData["pageIndex"], (int)ViewData["pageCount"]))
+    </p>
+
+            }
+        </div>
+    </div>
+</body>
+</html>

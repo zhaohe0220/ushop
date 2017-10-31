@@ -1,0 +1,171 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-个人资料</title>
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Scripts/jquery.form.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <style type="text/css">
+        label.error {
+            padding-left: 10px;
+            padding-bottom: 2px;
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+    <script type="text/javascript">
+        //验证
+        $().ready(function () {
+            $("#mesform").validate({
+                rules: {
+                    Phone: {
+                        digits: true
+                    },
+                    QQ: {
+                        digits: true
+                    },
+                    Email: {
+                        email: true
+                    },
+                },
+                messages: {
+                    Phone: {
+                        digits: "号码格式错误"
+                    },
+                    QQ: {
+                        digits: "QQ格式错误"
+                    },
+                    Email: {
+                        email: "邮件格式错误"
+                    },
+                }
+            });
+            //密码验证
+            $("#pwdform").validate({
+                rules: {
+                    OldPwd: {
+                        required: true
+                    },
+                    Pwd: {
+                        required: true
+                    },
+                    PwdOk: {
+                        required: true,
+                        equalTo: "#Pwd"
+                    },
+                },
+                messages: {
+                    OldPwd: {
+                        required: "请填写密码"
+                    },
+                    Pwd: {
+                        required: "密码错误"
+                    },
+                    PwdOk: {
+                        required: "请填写密码",
+                        equalTo: "两次密码不相同"
+                    },
+                }
+            });
+        });
+        function subForm() {
+            $("#mesform").submit();
+        }
+        function subForm() {
+            $("#pwdform").submit();
+        }
+        function Afterupdatemes(data) {
+            if (data == "ok") {
+                alert("信息编辑成功");
+            } else if (data == "no") {
+                alert("信息编辑失败，请重试");
+            } else { alert("系统错误"); }
+        }
+        function Afterupdatepwd(data) {
+            if (data == "false") {
+                alert("原始密码不正确，请重新填写。");
+            }
+            else if (data == "ok") {
+                alert("密码修改成功");
+            } else if (data == "no") {
+                alert("密码修改失败，请重试");
+            } else { alert("系统错误"); }
+        }
+    </script>
+</head>
+<body>
+    <div class="main">
+        <div class="main_left">
+            <div class="main_top">
+                <div class="t"><a class="Pro">编辑资料</a></div>
+            </div>
+            @using (Ajax.BeginForm("updatemes", "Admin", new AjaxOptions() { HttpMethod = "post", OnSuccess = "Afterupdatemes" }, new { id = "mesform" }))
+            {
+                if (ViewData["userlist"] != null)
+                {
+                    foreach (Model.UserInfo UserInfo in (List<Model.UserInfo>)ViewData["userlist"])
+                    {
+                    <div class="need">
+                        <div class="list_1">
+                            <h2>电话联系：</h2>
+                            <input type="text" id="Phone" name="Phone" class="text3" value="@UserInfo.Phone" />
+                            <span class="tip" id="tip3"></span>
+                        </div>
+                        <div class="list_1">
+                            <h2>Q Q 联系：</h2>
+                            <input type="text" id="QQ" name="QQ" class="text3" value="@UserInfo.QQ" />
+                            <span class="tip" id="tip3"></span>
+                        </div>
+                        <div class="list_1">
+                            <h2>电子邮件：</h2>
+                            <input type="email" id="Email" name="Email" class="text3" value="@UserInfo.Email" />
+                            <span class="tip" id="tip3"></span>
+                        </div>
+                        <div class="list_1">
+                            <input type="submit" class="submit" id="submitmes" value="提交" />
+                        </div>
+                    </div>}
+                }
+            }
+        </div>
+        <div class="main_right">
+            <div class="main_top">
+                <div class="t"><a class="Pro">修改密码</a></div>
+            </div>
+            @using (Ajax.BeginForm("updatepwd", "Admin", new AjaxOptions() { HttpMethod = "post", OnSuccess = "Afterupdatepwd" }, new { id = "pwdform" }))
+            {
+                <div class="need">
+                    <div class="list_1">
+                        <h2>当前密码：</h2>
+                        <input type="password" id="OldPwd" name="OldPwd" class="text3" />
+                        <span class="tip" id="tip1"></span>
+                    </div>
+
+                    <div class="list_1">
+                        <h2>新 密 码：</h2>
+                        <input type="password" id="Pwd" name="Pwd" class="text3" />
+                        <span class=" tip" id="tip2"></span>
+                    </div>
+                    <div class="list_1">
+                        <h2>确认密码：</h2>
+                        <input type="password" id="PwdOk" name="PwdOk" class="text3" />
+                        <span class="tip" id="tip3"></span>
+                    </div>
+                    <div class="list_1">
+                        <input type="submit" class="submit" id="submitpwd" value="提交" />
+                    </div>
+                </div>}
+        </div>
+    </div>
+</body>
+</html>

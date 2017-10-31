@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+   <link rel="shortcut icon" href="~/Content/img/ico.ico">
+    <link rel="bookmark" href="~/Content/img/ico.ico" />
+    @*<title>滨购网-校内物品交易平台</title>*@
+    <meta name="keywords" content="滨购网，青岛滨海学院，滨海购物网，青岛滨海学院二手物品交易平台" />
+    <meta name="description" content="滨购网，是青岛滨海学院校内物品交易平台，提供免费的商品展示和商家信息展示。" />
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <link href="~/Content/css/footer.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/js.js"></script>
+<script src="http://siteapp.baidu.com/static/webappservice/uaredirect.js" type="text/javascript"></script><script type="text/javascript">uaredirect("http://siteapp.baidu.com/webapp/www.bingowang.com","http://www.bingowang.com");</script>
+    <script type="text/javascript">
+        var menuYloc = null;
+        $(document).ready(function () { menuYloc = 200; $(window).scroll(function () { if ($(document).scrollTop() >= menuYloc) { $("#lay_menu").css("display", "block"); $("#menu").css("display", "block") } else { $("#lay_menu").css("display", "none"); $("#menu").css("display", "none") } }); })
+        function autoScroll(obj) {
+            $(obj).find(".list").animate({
+                marginTop: "-25px"
+            }, 500, function () {
+                $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
+            })
+        }
+        $(function () {
+            setInterval('autoScroll(".scroll")', 5000)
+        })
+    </script>
+    <script type="text/javascript">
+
+        //收藏功能
+        function AddFavorite(sURL, sTitle) {
+            sURL = encodeURI(sURL);
+            try {
+                window.external.addFavorite(sURL, sTitle);
+            } catch (e) {
+                try {
+                    window.sidebar.addPanel(sTitle, sURL, "");
+                } catch (e) {
+                    alert("加入收藏失败,请使用Ctrl+D进行添加,或手动在浏览器里进行设置.");
+                }
+            }
+        }
+
+        $(function () {
+            $(".logout").click(function () {
+                userlogout();//删除信息
+
+            });
+        });
+        function userlogout() {
+            $.post("/Index/userlogout", function (data) {
+                if (data == "ok") {
+                    window.location.href = "/Index/Login";
+                } else {
+                    alert("删除失败,请稍后再试。");
+                }
+            });
+        }
+
+
+        function search() {
+            var word = document.getElementById("search").value;
+            if (word == "") {
+                return;
+            } window.location.href = "/List/Search?id=" + word;
+        }
+
+    </script>
+    @*站长统计*@
+    <script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?5ce28a1cd0f48bd4ea46e417a6925277";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+    </script>
+
+
+</head>
+<body>
+    <div class="header">
+        <div class="header-center">
+            <div class="header-center-left">
+                <ul>
+                    <li>
+                        <a href="http://www.bingowang.com">滨购首页</a>
+                    </li>
+                    <li>
+                        <a onClick="AddFavorite('http://www.bingowang.com', '滨购网-校内物品交易平台')" href="javascript:void(0)" title="加入收藏">收藏滨购</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="header-center-right">
+                <ul>
+                    @if (Session["userInfo"] == null)
+                    {
+                        <li><a>欢迎来到滨购网</a></li>
+                        <li><a href="/Index/Login">[登录]</a></li>
+                        <li><a href="/Index/register">[注册]</a></li>
+                    }
+                    else
+                    {
+                        <li><a>欢迎您，@Session["userInfo"]</a></li>
+                        <li><a href="javascript:void(0)" id="logout" class="logout">[退出]</a></li>
+                    }
+
+                    <li class="li-xl">
+                        <a href="/Admin/Collection">我的收藏</a><i></i>
+                        <div class="khfu-bottom">
+                            <ul>
+                                <li><a href="/Admin/Collection">商品收藏</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="li-xl">
+                        <a href="/Admin/CenterPro">个人中心</a>
+                        <div class="khfu-bottom">
+                            <ul>
+                                <li><a href="/Admin/CenterPro">商品管理</a></li>
+                                <li><a href="/Admin/CenterNeed">需求管理</a></li>
+                                <li><a href="/Admin/zl">个人信息</a></li>
+                            </ul>
+                        </div>
+                    </li>
+  <li class="li-xl">
+                        <a>扫码穿越</a>
+                        <div class="khfu-bottom">
+                            <ul>
+                                <li><a>官方群码</a><img src="~/Content/img/qunma.jpg" /></li>
+                                <li><a>手机站码</a><img src="~/Content/img/shoujima.png" /></li>
+                               
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="/Static/about">关于我们</a></li>
+                    <li><a href="/Static/lianxi">联系我们</a></li>
+                    <li class="li-xl">
+                        <a href="/Static/lianxi">客户服务</a>
+                        <div class="khfu-bottom">
+                            <ul>
+                                <li><a href="/Static/lianxi">联系客服</a></li>
+                                <li><a href="/Static/Backfeed">意见建议</a></li>
+                                <li><a href="/Static/Backfeed">我要投诉</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="banner" style="border-bottom:2px solid #FA4332">
+        <div class="banner_center">
+            <div class="loginbar">
+                <a href="http://www.bingowang.com"><img src="~/Content/img/bingo.png" /></a>
+            </div>
+
+            <div class="search">
+                <div class="search_box">
+                    <input type="text" id="search" class="search_text" placeholder="请输入想要搜索的内容" />
+                    <input type="button" value="搜 索" class="search_btn" onclick="search()" accesskey="enter" />
+                </div>
+                <div class="hot_search">
+                    <ul>
+                        <li><h1>热门搜索：</h1></li>
+                        <li><a class="hot_red" href="/List/SIndex?id=8">课本</a></li>
+                        <li><a href="/List/SIndex?id=10">考研资料</a></li>
+                        <li><a href="/List/SIndex?id=15">男装</a></li>
+                        <li><a class="hot_red" href="/List/SIndex?id=16">女装</a></li>
+                        <li><a class="hot_red" href="/List/Index?id=3">手机数码</a></li>
+                        <li><a href="/List/Index?id=4">运动娱乐</a></li>
+                        <li><a href="/List/SIndex?id=59">食品类</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pub">
+                <a class="fb" href="/Admin/dalei">发布商品</a>
+                <a class="fb" href="/Admin/NeedPublish">发布需求</a>
+            </div>
+        </div>
+    </div>
+    <div id="lay_menu">
+        <ul>
+            <li>
+                <div class="fankui">
+                    <a href="/Static/Backfeed">我要反馈</a>
+                </div>
+            </li>
+            <li>
+                <div class="scroll" id="scroll">
+                    <a href="javascript:void(0)">回到顶部</a>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+
+    <div id="lay_menu">
+        <ul>
+            <li>
+                <div class="fankui">
+                    <a href="/Static/Backfeed">我要反馈</a>
+                </div>
+            </li>
+            <li>
+                <div class="scroll" id="scroll">
+                    <a>回到顶部</a>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+    <!-------------------------------------------->
+  
+
+    @RenderBody()
+    <footer>
+        <div id="ft_top"></div>
+        <div id="ft_conent">
+
+            <div id="icons">
+                <ul>
+                    <li>
+                        <div class="span2>">
+                            <img src="~/Content/img/icon1.png" />
+                            <p>注册/登陆</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="span2>">
+                            <img src="~/Content/img/icon2.png" />
+                            <p>发布信息</p>
+
+                        </div>
+                    </li>
+                    <li>
+                        <div class="span2>">
+                            <img src="~/Content/img/icon3.png" />
+                            <p>浏览网站</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="span2>">
+                            <img src="~/Content/img/icon4.png" />
+                            <p>联系发布者</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="span2>">
+                            <img src="~/Content/img/icon5.png" />
+                            <p>线下交易</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="ft_bottom">
+            <div id="span3">
+                <ul>
+                    <li><a href="/Static/about">关于我们</a></li>
+                    <li><a href="/Static/mianze">免责声明</a></li>
+                    <li><a href="/Static/fwxy">服务协议</a></li>
+                    <li><a href="/Static/lianxi">联系我们</a></li>
+                    <li><a href="/Static/href">友情链接</a></li>
+                </ul>
+            </div>
+            <div id="span4">Copyright &copy; 2015.Company <a href="http://www.bingowang.com" target="_blank">滨购网 </a> 版权所有 <a href="http://www.miitbeian.gov.cn/" target="_blank">ICP证：鲁ICP备15041097号-2</a></div>
+        </div>
+    </footer>
+    <script type="text/javascript">
+
+        $('#scroll').click(function () {
+            $("html,body").animate({ scrollTop: 0 }, 200);
+        });
+
+    </script>
+
+</body>
+</html>

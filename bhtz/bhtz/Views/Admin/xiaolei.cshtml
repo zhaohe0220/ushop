@@ -1,0 +1,35 @@
+﻿@{
+    Layout = "~/Views/Shared/Master.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>滨购网-选择商品类别</title>
+    <link href="~/Content/css/publish.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="main">
+        <div class="title">
+            <h1>免费发布商品</h1>
+        </div>
+       
+            <div class="biaoti">
+                <h1>请选择物品小类</h1>
+            </div>
+            @if (ViewData["littlelist"] != null)
+            {
+                <div class="list">
+                    <ul>
+                        @foreach (Model.Nav littlenav in (List<Model.Nav>)ViewData["littlelist"])
+                        {
+                            <li><a href="/Admin/addmes?littleid=@littlenav.id">@littlenav.name</a></li>
+                        }
+                    </ul>
+
+                </div>}
+                      </div>
+</body>
+</html>

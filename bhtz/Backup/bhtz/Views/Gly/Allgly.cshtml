@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/Views/Shared/Gly.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/css/admin.css" rel="stylesheet" />
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <title>Allgly</title>
+    <script type="text/javascript">
+        $(function () {
+            $(".deletegly").click(function () {
+                glydeletegly($(this).attr("ids"), $(this));//删除信息
+            });
+        });
+        function glydeletegly(id, control) {
+            $.post("/Gly/DeleteGly", { "id": id }, function (data) {
+                if (data == "ok") {
+                   $(control).parent().parent().remove();
+                    alert("删除成功");
+                  //  window.location.href = "/Gly/Allgly";
+                } else {
+                    alert("删除失败,请稍后再试。");
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+  
+    <div class="main">
+        <div class="allgly">
+            <div class="name">名称</div>
+            <div class="pwd">密码</div>
+            <div class="phone">联系方式</div>
+            <div class="time">添加时间</div>
+            <div class="bj">
+               操作
+            </div>
+            <div style="clear:both;"></div>
+            </div>
+        @if (ViewData["GlyInfo"] != null)
+        {
+            foreach (Model.GlyInfo GlyList in (List<Model.GlyInfo>)ViewData["GlyInfo"])
+                {
+        <div class="allgly">
+            <div class="name">@GlyList.AdminName</div>
+            <div class="pwd">@GlyList.PassWord</div>
+            <div class="phone">@GlyList.Phone</div>
+            <div class="time">@GlyList.AddTime</div>
+            <div class="bj">
+                <a href="/Gly/Updategly?glyid=@GlyList.AdminID">编辑</a>
+                <a class="deletegly" id="deletegly" href="javascript:void(0)" ids="@GlyList.AdminID">删除</a>
+            </div>
+        </div>}}
+    
+    </div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Glylogin</title>
+    <link href="~/Content/css/Index.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript">
+        function changeCode() {
+            $("#img").attr("src", $("#img").attr("src") + 1);
+        }
+
+        function glyafterLogin(data) {
+            var serverData = data.split(':')
+            if (serverData[0] == "ok") {
+                window.location.href = "/Gly/GlyPro";
+            } else if (serverData[0] == "no") {
+                $("#mes").text(serverData[1]);
+                changeCode();
+            } else {
+                $("#mes").text("系统繁忙！");
+            }
+        }
+    </script>
+    @*站长统计*@
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?5ce28a1cd0f48bd4ea46e417a6925277";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</head>
+<body>
+    <div class="login_main">
+        <div class="login_pic">
+            <a href="http://www.bingowang.com"><img src="~/Content/img/bingo.png" /></a>
+        </div>
+        <div class="login_pic"><img src="~/Content/img/login.png" /></div>
+
+
+        @using (Ajax.BeginForm("LoginGly", new { }, new AjaxOptions() { HttpMethod = "post", OnSuccess = "glyafterLogin" }, new { id = "glyloginForm" }))
+        {
+            <div class="login_box">
+                <div class="text">
+                    管理员登录
+                </div>
+                <div class="text">
+                    用户名：<input type="text" name="glyLoginCode" id="username" class="login_input" />
+                </div>
+                <div class="text">
+                    密&nbsp;码：<input type="password" name="glyLoginPwd" id="LoginPwd" class="login_input" />
+                </div>
+                <div class="text">
+                    验证码：
+                    <input type="text" name="vCode" id="Code" class="login_input" width="50" />
+                </div>
+                <div class="text">
+                    <img id="img" src="/Index/ShowCode/?id=1" alt="" />
+
+                    <a href="javascript:void(0)" onclick="changeCode();return false;">看不清，换一张</a>
+                </div>
+                <div class="text">
+                    <span id="mes"></span>
+                </div>
+                <div class="text">
+                    @*<div style="margin-left:60%;margin-top:5px;">还没有账号？<a href="/Index/Register">免费注册</a></div>*@
+                    <input type="submit" value="" name="login" id="login" style="width:309px; height:36px;border:none; background: url(../Content/img/login_btn.jpg) left top no-repeat;">
+                </div>
+
+            </div>
+
+        }
+        <div style="clear:both;"></div>
+        </div>
+
+</body>
+</html>
+

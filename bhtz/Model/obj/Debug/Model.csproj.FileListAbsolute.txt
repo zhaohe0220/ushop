@@ -1,0 +1,10 @@
+E:\phpwww\bhtz\Model\bin\Debug\Model.dll
+E:\phpwww\bhtz\Model\bin\Debug\Model.pdb
+E:\phpwww\bhtz\Model\obj\Debug\Model.dll
+E:\phpwww\bhtz\Model\obj\Debug\Model.pdb
+E:\phpwww\bhtz\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+E:\www\bhtz\Model\bin\Debug\Model.dll
+E:\www\bhtz\Model\bin\Debug\Model.pdb
+E:\www\bhtz\Model\obj\Debug\Model.dll
+E:\www\bhtz\Model\obj\Debug\Model.pdb
+E:\www\bhtz\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache

@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <link rel="shortcut icon" href="~/Content/img/bg.ico">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/js.js"></script>
+    <script type="text/javascript">
+        function autoScroll(obj) {
+            $(obj).find(".list").animate({
+                marginTop: "-25px"
+            }, 500, function () {
+                $(this).css({ marginTop: "0px" }).find("li:first").appendTo(this);
+            })
+        }
+        $(function () {
+            setInterval('autoScroll(".scroll")', 5000)
+        })
+    </script>
+    <script type="text/javascript">
+
+
+   $(function () {
+       $(".logout").click(function () {
+           userlogout();//删除信息
+             
+       });
+   });
+   function userlogout() {
+       $.post("/Index/userlogout",function (data) {
+            if (data == "ok") {
+                  window.location.href = "/Index/Index";
+            } else {
+                alert("删除失败,请稍后再试。");
+            }
+        });
+    }
+
+
+        function search() {
+            var word = document.getElementById("search").value;
+            if (word == "") {
+                return;
+            }
+            window.location.href = "/List/Search?id=" + word;
+        }
+
+    </script>
+</head>
+<body>
+
+
+
+
+    <div class="header">
+        <div class="center">
+            <div class="left">
+                <ul>
+                    <li>
+                        <a href="/Index/Index">滨购首页</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right">
+                <ul>
+
+                    @*<a href="/Index/Register">[免费注册]</a>*@
+                    <li><a href="/Static/about">关于我们</a></li>
+                    <li><a href="/Static/lianxi">联系我们</a></li>
+                    <li>
+                        <a href="/Admin/CenterPro">个人中心</a>
+                        <dl>
+                            <dd><a href="/Admin/CenterPro">商品管理</a></dd>
+                            <dd><a href="/Admin/CenterNeed">需求管理</a></dd>
+                            <dd><a href="/Admin/zl">个人信息</a></dd>
+                        </dl>
+                    </li>
+                    @if (Session["userInfo"] == null)
+                    {
+                        <li><a href="/Index/Login">[登录]</a></li>
+                        <li><a>欢迎来到滨购网</a></li>
+                    }
+                    else
+                    {
+                    <li><a href="javascript:void(0)" id="logout" class="logout">[退出]</a></li>
+                        <li><a>欢迎您，@Session["userInfo"]</a></li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    @*<div class="ad">
+      
+    <a href="#"><img src="~/Content/img/p3.jpg" /></a>   
+    </div>*@
+
+
+    <div class="banner" style="border-bottom:2px solid blue">
+        <div class="banner_center">
+            <div class="loginbar">
+                <a href="/Index/Index"><img src="~/Content/img/bingou.jpg" /></a>
+            </div>
+
+            <div class="search">
+                <div class="search_box">
+                    <input type="text" id="search" class="search_text" />
+                    <input type="button" value="搜 索" class="search_btn" onclick="search()" accesskey="enter" />
+                </div>
+            </div>
+
+            <div class="pub">
+                <a class="fb" href="/Admin/dalei">发布商品</a>
+                <a class="fb" href="/Admin/NeedPublish">发布需求</a>
+               @* <a class="xq" href="/Need/NeedList">查看全部需求</a>*@
+            </div>
+        </div>
+    </div>
+
+    @*<div class="master" style="width: 100%; min-width: 1215px; height: 40px;border-bottom: 2px solid blue;">
+        <div class="master_center" style="width:700px;border:1px solid red; margin:0 auto;height:38px;">
+            <div class="imgtip" style="float:left;"><img src="~/Content/img/tips.jpg" /></div>
+            <div class="scroll">
+                <ul class="list">
+                    <li><h4>二手物品质量问题，请仔细验货，请慎重选择。</h4></li>
+                    <li><h4>谨防网上欺诈行为，发现问题请尽快举报。</h4></li>
+                    <li><h4>由于受二手物品以及校内交易等因素的影响，网站不支持网上支付功能。</h4></li>
+                </ul>
+            </div>
+        </div></div>
+    <div class="clear"></div>*@
+
+        <div id="lay_menu">
+            <ul>
+                <li>
+                    <div class="fankui">
+                        <a href="/Static/Backfeed">我要反馈</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="scroll" id="scroll">
+                        <a>回到顶部</a>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+        <!-------------------------------------------->
+        <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "slide": { "type": "slide", "bdImg": "6", "bdPos": "right", "bdTop": "150.5" } }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+
+        @RenderBody()
+        <div class="footer">
+            <div class="content">
+                <ul>
+                    <li><a href="/Static/about">关于我们</a></li>
+                    <li><a href="/Static/mianze">免责声明</a></li>
+                    <li><a href="/Static/fwxy">服务协议</a></li>
+                    <li><a href="/Static/lianxi">联系我们</a></li>
+                    <li><a href="/Static/href">友情链接</a></li>
+                </ul>
+            </div>
+            <div class="copy">
+                Copyright&nbsp;&copy;&nbsp;2015&nbsp;&nbsp;<a href="/Index/Index">滨购网</a>&nbsp;版权所有
+            </div>
+        </div>
+        <script type="text/javascript">
+
+            $('#scroll').click(function () {
+                $("html,body").animate({ scrollTop: 0 }, 200);
+            });
+
+        </script>
+
+</body>
+</html>

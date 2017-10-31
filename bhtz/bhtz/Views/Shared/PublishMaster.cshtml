@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/css/Index.css" rel="stylesheet" />
+
+    <script src="~/Scripts/js.js"></script>
+    <script type="text/javascript">
+
+        function search() {
+            var word = document.getElementById("search").value;
+            if (word == "") {
+                return;
+            }
+            window.location.href = "/List/Search?id=" + word;
+        }
+
+    </script>
+</head>
+<body>
+
+
+
+
+    <div class="header">
+        <div class="center">
+            <div class="left">
+                <ul>
+                    <li>
+                        <a href="/Index/Index">平台首页</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right">
+                <ul>
+
+                    @*<a href="/Index/Register">[免费注册]</a>*@
+                    <li><a href="#">关于平台</a></li>
+                    <li><a href="#">联系我们</a></li>
+                    <li><a href="#">收藏</a></li>
+                    <li><a href="#">个人中心</a></li>
+                    @if (Session["userInfo"] == null)
+                    {
+                        <li><a href="/Index/Login">[登录]</a></li>
+                    }
+                    else
+                    {
+                        <li><a id="logout" href="/Index/Login">[退出]</a></li>
+                    }
+                    <li><a>欢迎来到大学生二手交易平台</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="banner">
+        <div class="banner_center">
+            <div class="loginbar">
+                <a href="/Index/Index"><img src="~/Content/img/]93PN`7)Y2]VG~U3R085DB8.jpg" /></a>
+            </div>
+
+            <div class="search">
+                <div class="search_box">
+                    <input type="text" id="search" class="search_text" />
+                    <input type="button" value="搜 索" class="search_btn" onclick="search()" accesskey="enter" />
+                </div>
+            </div>
+
+            <div class="pub">
+                <a href="/Admin/publish">发布信息</a>
+                <a href="/Admin/publish">发布需求</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="lay_menu">
+        <ul>
+            <li>
+                <div class="fankui">
+                    <a href="#">反馈</a>
+                </div>
+            </li>
+            <li>
+                <div class="scroll" id="scroll">
+                    <a>回到顶部</a>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+    <!-------------------------------------------->
+    <script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "2", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "slide": { "type": "slide", "bdImg": "6", "bdPos": "right", "bdTop": "150.5" } }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];</script>
+
+    @RenderBody()
+    <div class="footer">
+        <div class="content">
+            <ul>
+                <li><a href="#">关于我们</a></li>
+                <li><a href="#">免责声明</a></li>
+                <li><a href="#">联系客服</a></li>
+                <li><a href="#">友情链接</a></li>
+            </ul>
+        </div>
+        <div class="copy">
+            Copyright&nbsp;&copy;&nbsp;2015&nbsp;&nbsp;大学生电子交易平台ushop.com&nbsp;版权所有
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $('#scroll').click(function () {
+            $("html,body").animate({ scrollTop: 0 }, 200);
+        });
+
+    </script>
+
+</body>
+</html>
